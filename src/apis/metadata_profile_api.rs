@@ -10,9 +10,9 @@
 
 
 use reqwest;
-use serde::{Deserialize, Serialize};
+use serde::{Deserialize, Serialize, de::Error as _};
 use crate::{apis::ResponseContent, models};
-use super::{Error, configuration};
+use super::{Error, configuration, ContentType};
 
 
 /// struct for typed errors of method [`create_metadata_profile`]
@@ -83,10 +83,20 @@ pub async fn create_metadata_profile(configuration: &configuration::Configuratio
     let resp = configuration.client.execute(req).await?;
 
     let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
         let content = resp.text().await?;
-        serde_json::from_str(&content).map_err(Error::from)
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::MetadataProfileResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::MetadataProfileResource`")))),
+        }
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateMetadataProfileError> = serde_json::from_str(&content).ok();
@@ -166,10 +176,20 @@ pub async fn get_metadata_profile_by_id(configuration: &configuration::Configura
     let resp = configuration.client.execute(req).await?;
 
     let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
         let content = resp.text().await?;
-        serde_json::from_str(&content).map_err(Error::from)
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::MetadataProfileResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::MetadataProfileResource`")))),
+        }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetMetadataProfileByIdError> = serde_json::from_str(&content).ok();
@@ -206,10 +226,20 @@ pub async fn list_metadata_profile(configuration: &configuration::Configuration,
     let resp = configuration.client.execute(req).await?;
 
     let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
         let content = resp.text().await?;
-        serde_json::from_str(&content).map_err(Error::from)
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `Vec&lt;models::MetadataProfileResource&gt;`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `Vec&lt;models::MetadataProfileResource&gt;`")))),
+        }
     } else {
         let content = resp.text().await?;
         let entity: Option<ListMetadataProfileError> = serde_json::from_str(&content).ok();
@@ -250,10 +280,20 @@ pub async fn update_metadata_profile(configuration: &configuration::Configuratio
     let resp = configuration.client.execute(req).await?;
 
     let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
         let content = resp.text().await?;
-        serde_json::from_str(&content).map_err(Error::from)
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::MetadataProfileResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::MetadataProfileResource`")))),
+        }
     } else {
         let content = resp.text().await?;
         let entity: Option<UpdateMetadataProfileError> = serde_json::from_str(&content).ok();
