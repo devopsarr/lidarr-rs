@@ -7,6 +7,7 @@
 | Downloading | downloading |
 | DownloadFailed | downloadFailed |
 | DownloadFailedPending | downloadFailedPending |
+| ImportBlocked | importBlocked |
 | ImportPending | importPending |
 | Importing | importing |
 | ImportFailed | importFailed |
