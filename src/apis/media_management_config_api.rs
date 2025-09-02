@@ -89,9 +89,9 @@ pub async fn get_media_management_config(configuration: &configuration::Configur
 
 pub async fn get_media_management_config_by_id(configuration: &configuration::Configuration, id: i32) -> Result<models::MediaManagementConfigResource, Error<GetMediaManagementConfigByIdError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
+    let p_path_id = id;
 
-    let uri_str = format!("{}/api/v1/config/mediamanagement/{id}", configuration.base_path, id=p_id);
+    let uri_str = format!("{}/api/v1/config/mediamanagement/{id}", configuration.base_path, id=p_path_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {
@@ -141,10 +141,10 @@ pub async fn get_media_management_config_by_id(configuration: &configuration::Co
 
 pub async fn update_media_management_config(configuration: &configuration::Configuration, id: &str, media_management_config_resource: Option<models::MediaManagementConfigResource>) -> Result<models::MediaManagementConfigResource, Error<UpdateMediaManagementConfigError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_media_management_config_resource = media_management_config_resource;
+    let p_path_id = id;
+    let p_body_media_management_config_resource = media_management_config_resource;
 
-    let uri_str = format!("{}/api/v1/config/mediamanagement/{id}", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/api/v1/config/mediamanagement/{id}", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::PUT, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {
@@ -166,7 +166,7 @@ pub async fn update_media_management_config(configuration: &configuration::Confi
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_media_management_config_resource);
+    req_builder = req_builder.json(&p_body_media_management_config_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;

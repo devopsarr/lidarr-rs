@@ -81,13 +81,13 @@ pub enum UpdateNotificationError {
 
 pub async fn create_notification(configuration: &configuration::Configuration, force_save: Option<bool>, notification_resource: Option<models::NotificationResource>) -> Result<models::NotificationResource, Error<CreateNotificationError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_force_save = force_save;
-    let p_notification_resource = notification_resource;
+    let p_query_force_save = force_save;
+    let p_body_notification_resource = notification_resource;
 
     let uri_str = format!("{}/api/v1/notification", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_force_save {
+    if let Some(ref param_value) = p_query_force_save {
         req_builder = req_builder.query(&[("forceSave", &param_value.to_string())]);
     }
     if let Some(ref apikey) = configuration.api_key {
@@ -109,7 +109,7 @@ pub async fn create_notification(configuration: &configuration::Configuration, f
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_notification_resource);
+    req_builder = req_builder.json(&p_body_notification_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -138,10 +138,10 @@ pub async fn create_notification(configuration: &configuration::Configuration, f
 
 pub async fn create_notification_action_by_name(configuration: &configuration::Configuration, name: &str, notification_resource: Option<models::NotificationResource>) -> Result<(), Error<CreateNotificationActionByNameError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_name = name;
-    let p_notification_resource = notification_resource;
+    let p_path_name = name;
+    let p_body_notification_resource = notification_resource;
 
-    let uri_str = format!("{}/api/v1/notification/action/{name}", configuration.base_path, name=crate::apis::urlencode(p_name));
+    let uri_str = format!("{}/api/v1/notification/action/{name}", configuration.base_path, name=crate::apis::urlencode(p_path_name));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {
@@ -163,7 +163,7 @@ pub async fn create_notification_action_by_name(configuration: &configuration::C
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_notification_resource);
+    req_builder = req_builder.json(&p_body_notification_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -181,9 +181,9 @@ pub async fn create_notification_action_by_name(configuration: &configuration::C
 
 pub async fn delete_notification(configuration: &configuration::Configuration, id: i32) -> Result<(), Error<DeleteNotificationError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
+    let p_path_id = id;
 
-    let uri_str = format!("{}/api/v1/notification/{id}", configuration.base_path, id=p_id);
+    let uri_str = format!("{}/api/v1/notification/{id}", configuration.base_path, id=p_path_id);
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {
@@ -222,9 +222,9 @@ pub async fn delete_notification(configuration: &configuration::Configuration, i
 
 pub async fn get_notification_by_id(configuration: &configuration::Configuration, id: i32) -> Result<models::NotificationResource, Error<GetNotificationByIdError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
+    let p_path_id = id;
 
-    let uri_str = format!("{}/api/v1/notification/{id}", configuration.base_path, id=p_id);
+    let uri_str = format!("{}/api/v1/notification/{id}", configuration.base_path, id=p_path_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {
@@ -374,13 +374,13 @@ pub async fn list_notification_schema(configuration: &configuration::Configurati
 
 pub async fn test_notification(configuration: &configuration::Configuration, force_test: Option<bool>, notification_resource: Option<models::NotificationResource>) -> Result<(), Error<TestNotificationError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_force_test = force_test;
-    let p_notification_resource = notification_resource;
+    let p_query_force_test = force_test;
+    let p_body_notification_resource = notification_resource;
 
     let uri_str = format!("{}/api/v1/notification/test", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_force_test {
+    if let Some(ref param_value) = p_query_force_test {
         req_builder = req_builder.query(&[("forceTest", &param_value.to_string())]);
     }
     if let Some(ref apikey) = configuration.api_key {
@@ -402,7 +402,7 @@ pub async fn test_notification(configuration: &configuration::Configuration, for
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_notification_resource);
+    req_builder = req_builder.json(&p_body_notification_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -459,14 +459,14 @@ pub async fn testall_notification(configuration: &configuration::Configuration, 
 
 pub async fn update_notification(configuration: &configuration::Configuration, id: i32, force_save: Option<bool>, notification_resource: Option<models::NotificationResource>) -> Result<models::NotificationResource, Error<UpdateNotificationError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_force_save = force_save;
-    let p_notification_resource = notification_resource;
+    let p_path_id = id;
+    let p_query_force_save = force_save;
+    let p_body_notification_resource = notification_resource;
 
-    let uri_str = format!("{}/api/v1/notification/{id}", configuration.base_path, id=p_id);
+    let uri_str = format!("{}/api/v1/notification/{id}", configuration.base_path, id=p_path_id);
     let mut req_builder = configuration.client.request(reqwest::Method::PUT, &uri_str);
 
-    if let Some(ref param_value) = p_force_save {
+    if let Some(ref param_value) = p_query_force_save {
         req_builder = req_builder.query(&[("forceSave", &param_value.to_string())]);
     }
     if let Some(ref apikey) = configuration.api_key {
@@ -488,7 +488,7 @@ pub async fn update_notification(configuration: &configuration::Configuration, i
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_notification_resource);
+    req_builder = req_builder.json(&p_body_notification_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;

@@ -46,7 +46,7 @@ pub enum ListCommandError {
 
 pub async fn create_command(configuration: &configuration::Configuration, command_resource: Option<models::CommandResource>) -> Result<models::CommandResource, Error<CreateCommandError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_command_resource = command_resource;
+    let p_body_command_resource = command_resource;
 
     let uri_str = format!("{}/api/v1/command", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -70,7 +70,7 @@ pub async fn create_command(configuration: &configuration::Configuration, comman
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_command_resource);
+    req_builder = req_builder.json(&p_body_command_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -99,9 +99,9 @@ pub async fn create_command(configuration: &configuration::Configuration, comman
 
 pub async fn delete_command(configuration: &configuration::Configuration, id: i32) -> Result<(), Error<DeleteCommandError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
+    let p_path_id = id;
 
-    let uri_str = format!("{}/api/v1/command/{id}", configuration.base_path, id=p_id);
+    let uri_str = format!("{}/api/v1/command/{id}", configuration.base_path, id=p_path_id);
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {
@@ -140,9 +140,9 @@ pub async fn delete_command(configuration: &configuration::Configuration, id: i3
 
 pub async fn get_command_by_id(configuration: &configuration::Configuration, id: i32) -> Result<models::CommandResource, Error<GetCommandByIdError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
+    let p_path_id = id;
 
-    let uri_str = format!("{}/api/v1/command/{id}", configuration.base_path, id=p_id);
+    let uri_str = format!("{}/api/v1/command/{id}", configuration.base_path, id=p_path_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {

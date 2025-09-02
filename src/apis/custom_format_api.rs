@@ -74,7 +74,7 @@ pub enum UpdateCustomFormatError {
 
 pub async fn create_custom_format(configuration: &configuration::Configuration, custom_format_resource: Option<models::CustomFormatResource>) -> Result<models::CustomFormatResource, Error<CreateCustomFormatError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_custom_format_resource = custom_format_resource;
+    let p_body_custom_format_resource = custom_format_resource;
 
     let uri_str = format!("{}/api/v1/customformat", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -98,7 +98,7 @@ pub async fn create_custom_format(configuration: &configuration::Configuration, 
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_custom_format_resource);
+    req_builder = req_builder.json(&p_body_custom_format_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -127,9 +127,9 @@ pub async fn create_custom_format(configuration: &configuration::Configuration, 
 
 pub async fn delete_custom_format(configuration: &configuration::Configuration, id: i32) -> Result<(), Error<DeleteCustomFormatError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
+    let p_path_id = id;
 
-    let uri_str = format!("{}/api/v1/customformat/{id}", configuration.base_path, id=p_id);
+    let uri_str = format!("{}/api/v1/customformat/{id}", configuration.base_path, id=p_path_id);
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {
@@ -168,7 +168,7 @@ pub async fn delete_custom_format(configuration: &configuration::Configuration, 
 
 pub async fn delete_custom_format_bulk(configuration: &configuration::Configuration, custom_format_bulk_resource: Option<models::CustomFormatBulkResource>) -> Result<(), Error<DeleteCustomFormatBulkError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_custom_format_bulk_resource = custom_format_bulk_resource;
+    let p_body_custom_format_bulk_resource = custom_format_bulk_resource;
 
     let uri_str = format!("{}/api/v1/customformat/bulk", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
@@ -192,7 +192,7 @@ pub async fn delete_custom_format_bulk(configuration: &configuration::Configurat
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_custom_format_bulk_resource);
+    req_builder = req_builder.json(&p_body_custom_format_bulk_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -210,9 +210,9 @@ pub async fn delete_custom_format_bulk(configuration: &configuration::Configurat
 
 pub async fn get_custom_format_by_id(configuration: &configuration::Configuration, id: i32) -> Result<models::CustomFormatResource, Error<GetCustomFormatByIdError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
+    let p_path_id = id;
 
-    let uri_str = format!("{}/api/v1/customformat/{id}", configuration.base_path, id=p_id);
+    let uri_str = format!("{}/api/v1/customformat/{id}", configuration.base_path, id=p_path_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {
@@ -362,7 +362,7 @@ pub async fn list_custom_format_schema(configuration: &configuration::Configurat
 
 pub async fn put_custom_format_bulk(configuration: &configuration::Configuration, custom_format_bulk_resource: Option<models::CustomFormatBulkResource>) -> Result<models::CustomFormatResource, Error<PutCustomFormatBulkError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_custom_format_bulk_resource = custom_format_bulk_resource;
+    let p_body_custom_format_bulk_resource = custom_format_bulk_resource;
 
     let uri_str = format!("{}/api/v1/customformat/bulk", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::PUT, &uri_str);
@@ -386,7 +386,7 @@ pub async fn put_custom_format_bulk(configuration: &configuration::Configuration
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_custom_format_bulk_resource);
+    req_builder = req_builder.json(&p_body_custom_format_bulk_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -415,10 +415,10 @@ pub async fn put_custom_format_bulk(configuration: &configuration::Configuration
 
 pub async fn update_custom_format(configuration: &configuration::Configuration, id: &str, custom_format_resource: Option<models::CustomFormatResource>) -> Result<models::CustomFormatResource, Error<UpdateCustomFormatError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_custom_format_resource = custom_format_resource;
+    let p_path_id = id;
+    let p_body_custom_format_resource = custom_format_resource;
 
-    let uri_str = format!("{}/api/v1/customformat/{id}", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/api/v1/customformat/{id}", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::PUT, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {
@@ -440,7 +440,7 @@ pub async fn update_custom_format(configuration: &configuration::Configuration, 
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_custom_format_resource);
+    req_builder = req_builder.json(&p_body_custom_format_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;

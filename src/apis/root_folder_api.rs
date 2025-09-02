@@ -53,7 +53,7 @@ pub enum UpdateRootFolderError {
 
 pub async fn create_root_folder(configuration: &configuration::Configuration, root_folder_resource: Option<models::RootFolderResource>) -> Result<models::RootFolderResource, Error<CreateRootFolderError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_root_folder_resource = root_folder_resource;
+    let p_body_root_folder_resource = root_folder_resource;
 
     let uri_str = format!("{}/api/v1/rootfolder", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -77,7 +77,7 @@ pub async fn create_root_folder(configuration: &configuration::Configuration, ro
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_root_folder_resource);
+    req_builder = req_builder.json(&p_body_root_folder_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -106,9 +106,9 @@ pub async fn create_root_folder(configuration: &configuration::Configuration, ro
 
 pub async fn delete_root_folder(configuration: &configuration::Configuration, id: i32) -> Result<(), Error<DeleteRootFolderError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
+    let p_path_id = id;
 
-    let uri_str = format!("{}/api/v1/rootfolder/{id}", configuration.base_path, id=p_id);
+    let uri_str = format!("{}/api/v1/rootfolder/{id}", configuration.base_path, id=p_path_id);
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {
@@ -147,9 +147,9 @@ pub async fn delete_root_folder(configuration: &configuration::Configuration, id
 
 pub async fn get_root_folder_by_id(configuration: &configuration::Configuration, id: i32) -> Result<models::RootFolderResource, Error<GetRootFolderByIdError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
+    let p_path_id = id;
 
-    let uri_str = format!("{}/api/v1/rootfolder/{id}", configuration.base_path, id=p_id);
+    let uri_str = format!("{}/api/v1/rootfolder/{id}", configuration.base_path, id=p_path_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {
@@ -249,10 +249,10 @@ pub async fn list_root_folder(configuration: &configuration::Configuration, ) ->
 
 pub async fn update_root_folder(configuration: &configuration::Configuration, id: &str, root_folder_resource: Option<models::RootFolderResource>) -> Result<models::RootFolderResource, Error<UpdateRootFolderError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_root_folder_resource = root_folder_resource;
+    let p_path_id = id;
+    let p_body_root_folder_resource = root_folder_resource;
 
-    let uri_str = format!("{}/api/v1/rootfolder/{id}", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/api/v1/rootfolder/{id}", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::PUT, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {
@@ -274,7 +274,7 @@ pub async fn update_root_folder(configuration: &configuration::Configuration, id
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_root_folder_resource);
+    req_builder = req_builder.json(&p_body_root_folder_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;

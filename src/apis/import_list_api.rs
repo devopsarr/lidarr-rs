@@ -95,13 +95,13 @@ pub enum UpdateImportListError {
 
 pub async fn create_import_list(configuration: &configuration::Configuration, force_save: Option<bool>, import_list_resource: Option<models::ImportListResource>) -> Result<models::ImportListResource, Error<CreateImportListError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_force_save = force_save;
-    let p_import_list_resource = import_list_resource;
+    let p_query_force_save = force_save;
+    let p_body_import_list_resource = import_list_resource;
 
     let uri_str = format!("{}/api/v1/importlist", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_force_save {
+    if let Some(ref param_value) = p_query_force_save {
         req_builder = req_builder.query(&[("forceSave", &param_value.to_string())]);
     }
     if let Some(ref apikey) = configuration.api_key {
@@ -123,7 +123,7 @@ pub async fn create_import_list(configuration: &configuration::Configuration, fo
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_import_list_resource);
+    req_builder = req_builder.json(&p_body_import_list_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -152,10 +152,10 @@ pub async fn create_import_list(configuration: &configuration::Configuration, fo
 
 pub async fn create_import_list_action_by_name(configuration: &configuration::Configuration, name: &str, import_list_resource: Option<models::ImportListResource>) -> Result<(), Error<CreateImportListActionByNameError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_name = name;
-    let p_import_list_resource = import_list_resource;
+    let p_path_name = name;
+    let p_body_import_list_resource = import_list_resource;
 
-    let uri_str = format!("{}/api/v1/importlist/action/{name}", configuration.base_path, name=crate::apis::urlencode(p_name));
+    let uri_str = format!("{}/api/v1/importlist/action/{name}", configuration.base_path, name=crate::apis::urlencode(p_path_name));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {
@@ -177,7 +177,7 @@ pub async fn create_import_list_action_by_name(configuration: &configuration::Co
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_import_list_resource);
+    req_builder = req_builder.json(&p_body_import_list_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -195,9 +195,9 @@ pub async fn create_import_list_action_by_name(configuration: &configuration::Co
 
 pub async fn delete_import_list(configuration: &configuration::Configuration, id: i32) -> Result<(), Error<DeleteImportListError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
+    let p_path_id = id;
 
-    let uri_str = format!("{}/api/v1/importlist/{id}", configuration.base_path, id=p_id);
+    let uri_str = format!("{}/api/v1/importlist/{id}", configuration.base_path, id=p_path_id);
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {
@@ -236,7 +236,7 @@ pub async fn delete_import_list(configuration: &configuration::Configuration, id
 
 pub async fn delete_import_list_bulk(configuration: &configuration::Configuration, import_list_bulk_resource: Option<models::ImportListBulkResource>) -> Result<(), Error<DeleteImportListBulkError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_import_list_bulk_resource = import_list_bulk_resource;
+    let p_body_import_list_bulk_resource = import_list_bulk_resource;
 
     let uri_str = format!("{}/api/v1/importlist/bulk", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
@@ -260,7 +260,7 @@ pub async fn delete_import_list_bulk(configuration: &configuration::Configuratio
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_import_list_bulk_resource);
+    req_builder = req_builder.json(&p_body_import_list_bulk_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -278,9 +278,9 @@ pub async fn delete_import_list_bulk(configuration: &configuration::Configuratio
 
 pub async fn get_import_list_by_id(configuration: &configuration::Configuration, id: i32) -> Result<models::ImportListResource, Error<GetImportListByIdError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
+    let p_path_id = id;
 
-    let uri_str = format!("{}/api/v1/importlist/{id}", configuration.base_path, id=p_id);
+    let uri_str = format!("{}/api/v1/importlist/{id}", configuration.base_path, id=p_path_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {
@@ -430,7 +430,7 @@ pub async fn list_import_list_schema(configuration: &configuration::Configuratio
 
 pub async fn put_import_list_bulk(configuration: &configuration::Configuration, import_list_bulk_resource: Option<models::ImportListBulkResource>) -> Result<models::ImportListResource, Error<PutImportListBulkError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_import_list_bulk_resource = import_list_bulk_resource;
+    let p_body_import_list_bulk_resource = import_list_bulk_resource;
 
     let uri_str = format!("{}/api/v1/importlist/bulk", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::PUT, &uri_str);
@@ -454,7 +454,7 @@ pub async fn put_import_list_bulk(configuration: &configuration::Configuration, 
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_import_list_bulk_resource);
+    req_builder = req_builder.json(&p_body_import_list_bulk_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -483,13 +483,13 @@ pub async fn put_import_list_bulk(configuration: &configuration::Configuration, 
 
 pub async fn test_import_list(configuration: &configuration::Configuration, force_test: Option<bool>, import_list_resource: Option<models::ImportListResource>) -> Result<(), Error<TestImportListError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_force_test = force_test;
-    let p_import_list_resource = import_list_resource;
+    let p_query_force_test = force_test;
+    let p_body_import_list_resource = import_list_resource;
 
     let uri_str = format!("{}/api/v1/importlist/test", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_force_test {
+    if let Some(ref param_value) = p_query_force_test {
         req_builder = req_builder.query(&[("forceTest", &param_value.to_string())]);
     }
     if let Some(ref apikey) = configuration.api_key {
@@ -511,7 +511,7 @@ pub async fn test_import_list(configuration: &configuration::Configuration, forc
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_import_list_resource);
+    req_builder = req_builder.json(&p_body_import_list_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -568,14 +568,14 @@ pub async fn testall_import_list(configuration: &configuration::Configuration, )
 
 pub async fn update_import_list(configuration: &configuration::Configuration, id: i32, force_save: Option<bool>, import_list_resource: Option<models::ImportListResource>) -> Result<models::ImportListResource, Error<UpdateImportListError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_force_save = force_save;
-    let p_import_list_resource = import_list_resource;
+    let p_path_id = id;
+    let p_query_force_save = force_save;
+    let p_body_import_list_resource = import_list_resource;
 
-    let uri_str = format!("{}/api/v1/importlist/{id}", configuration.base_path, id=p_id);
+    let uri_str = format!("{}/api/v1/importlist/{id}", configuration.base_path, id=p_path_id);
     let mut req_builder = configuration.client.request(reqwest::Method::PUT, &uri_str);
 
-    if let Some(ref param_value) = p_force_save {
+    if let Some(ref param_value) = p_query_force_save {
         req_builder = req_builder.query(&[("forceSave", &param_value.to_string())]);
     }
     if let Some(ref apikey) = configuration.api_key {
@@ -597,7 +597,7 @@ pub async fn update_import_list(configuration: &configuration::Configuration, id
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_import_list_resource);
+    req_builder = req_builder.json(&p_body_import_list_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;

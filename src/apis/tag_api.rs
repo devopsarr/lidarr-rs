@@ -53,7 +53,7 @@ pub enum UpdateTagError {
 
 pub async fn create_tag(configuration: &configuration::Configuration, tag_resource: Option<models::TagResource>) -> Result<models::TagResource, Error<CreateTagError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_tag_resource = tag_resource;
+    let p_body_tag_resource = tag_resource;
 
     let uri_str = format!("{}/api/v1/tag", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -77,7 +77,7 @@ pub async fn create_tag(configuration: &configuration::Configuration, tag_resour
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_tag_resource);
+    req_builder = req_builder.json(&p_body_tag_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -106,9 +106,9 @@ pub async fn create_tag(configuration: &configuration::Configuration, tag_resour
 
 pub async fn delete_tag(configuration: &configuration::Configuration, id: i32) -> Result<(), Error<DeleteTagError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
+    let p_path_id = id;
 
-    let uri_str = format!("{}/api/v1/tag/{id}", configuration.base_path, id=p_id);
+    let uri_str = format!("{}/api/v1/tag/{id}", configuration.base_path, id=p_path_id);
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {
@@ -147,9 +147,9 @@ pub async fn delete_tag(configuration: &configuration::Configuration, id: i32) -
 
 pub async fn get_tag_by_id(configuration: &configuration::Configuration, id: i32) -> Result<models::TagResource, Error<GetTagByIdError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
+    let p_path_id = id;
 
-    let uri_str = format!("{}/api/v1/tag/{id}", configuration.base_path, id=p_id);
+    let uri_str = format!("{}/api/v1/tag/{id}", configuration.base_path, id=p_path_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {
@@ -249,10 +249,10 @@ pub async fn list_tag(configuration: &configuration::Configuration, ) -> Result<
 
 pub async fn update_tag(configuration: &configuration::Configuration, id: &str, tag_resource: Option<models::TagResource>) -> Result<models::TagResource, Error<UpdateTagError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_tag_resource = tag_resource;
+    let p_path_id = id;
+    let p_body_tag_resource = tag_resource;
 
-    let uri_str = format!("{}/api/v1/tag/{id}", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/api/v1/tag/{id}", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::PUT, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {
@@ -274,7 +274,7 @@ pub async fn update_tag(configuration: &configuration::Configuration, id: &str, 
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_tag_resource);
+    req_builder = req_builder.json(&p_body_tag_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;

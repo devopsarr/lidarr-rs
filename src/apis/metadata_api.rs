@@ -81,13 +81,13 @@ pub enum UpdateMetadataError {
 
 pub async fn create_metadata(configuration: &configuration::Configuration, force_save: Option<bool>, metadata_resource: Option<models::MetadataResource>) -> Result<models::MetadataResource, Error<CreateMetadataError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_force_save = force_save;
-    let p_metadata_resource = metadata_resource;
+    let p_query_force_save = force_save;
+    let p_body_metadata_resource = metadata_resource;
 
     let uri_str = format!("{}/api/v1/metadata", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_force_save {
+    if let Some(ref param_value) = p_query_force_save {
         req_builder = req_builder.query(&[("forceSave", &param_value.to_string())]);
     }
     if let Some(ref apikey) = configuration.api_key {
@@ -109,7 +109,7 @@ pub async fn create_metadata(configuration: &configuration::Configuration, force
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_metadata_resource);
+    req_builder = req_builder.json(&p_body_metadata_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -138,10 +138,10 @@ pub async fn create_metadata(configuration: &configuration::Configuration, force
 
 pub async fn create_metadata_action_by_name(configuration: &configuration::Configuration, name: &str, metadata_resource: Option<models::MetadataResource>) -> Result<(), Error<CreateMetadataActionByNameError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_name = name;
-    let p_metadata_resource = metadata_resource;
+    let p_path_name = name;
+    let p_body_metadata_resource = metadata_resource;
 
-    let uri_str = format!("{}/api/v1/metadata/action/{name}", configuration.base_path, name=crate::apis::urlencode(p_name));
+    let uri_str = format!("{}/api/v1/metadata/action/{name}", configuration.base_path, name=crate::apis::urlencode(p_path_name));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {
@@ -163,7 +163,7 @@ pub async fn create_metadata_action_by_name(configuration: &configuration::Confi
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_metadata_resource);
+    req_builder = req_builder.json(&p_body_metadata_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -181,9 +181,9 @@ pub async fn create_metadata_action_by_name(configuration: &configuration::Confi
 
 pub async fn delete_metadata(configuration: &configuration::Configuration, id: i32) -> Result<(), Error<DeleteMetadataError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
+    let p_path_id = id;
 
-    let uri_str = format!("{}/api/v1/metadata/{id}", configuration.base_path, id=p_id);
+    let uri_str = format!("{}/api/v1/metadata/{id}", configuration.base_path, id=p_path_id);
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {
@@ -222,9 +222,9 @@ pub async fn delete_metadata(configuration: &configuration::Configuration, id: i
 
 pub async fn get_metadata_by_id(configuration: &configuration::Configuration, id: i32) -> Result<models::MetadataResource, Error<GetMetadataByIdError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
+    let p_path_id = id;
 
-    let uri_str = format!("{}/api/v1/metadata/{id}", configuration.base_path, id=p_id);
+    let uri_str = format!("{}/api/v1/metadata/{id}", configuration.base_path, id=p_path_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {
@@ -374,13 +374,13 @@ pub async fn list_metadata_schema(configuration: &configuration::Configuration, 
 
 pub async fn test_metadata(configuration: &configuration::Configuration, force_test: Option<bool>, metadata_resource: Option<models::MetadataResource>) -> Result<(), Error<TestMetadataError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_force_test = force_test;
-    let p_metadata_resource = metadata_resource;
+    let p_query_force_test = force_test;
+    let p_body_metadata_resource = metadata_resource;
 
     let uri_str = format!("{}/api/v1/metadata/test", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_force_test {
+    if let Some(ref param_value) = p_query_force_test {
         req_builder = req_builder.query(&[("forceTest", &param_value.to_string())]);
     }
     if let Some(ref apikey) = configuration.api_key {
@@ -402,7 +402,7 @@ pub async fn test_metadata(configuration: &configuration::Configuration, force_t
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_metadata_resource);
+    req_builder = req_builder.json(&p_body_metadata_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -459,14 +459,14 @@ pub async fn testall_metadata(configuration: &configuration::Configuration, ) ->
 
 pub async fn update_metadata(configuration: &configuration::Configuration, id: i32, force_save: Option<bool>, metadata_resource: Option<models::MetadataResource>) -> Result<models::MetadataResource, Error<UpdateMetadataError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_force_save = force_save;
-    let p_metadata_resource = metadata_resource;
+    let p_path_id = id;
+    let p_query_force_save = force_save;
+    let p_body_metadata_resource = metadata_resource;
 
-    let uri_str = format!("{}/api/v1/metadata/{id}", configuration.base_path, id=p_id);
+    let uri_str = format!("{}/api/v1/metadata/{id}", configuration.base_path, id=p_path_id);
     let mut req_builder = configuration.client.request(reqwest::Method::PUT, &uri_str);
 
-    if let Some(ref param_value) = p_force_save {
+    if let Some(ref param_value) = p_query_force_save {
         req_builder = req_builder.query(&[("forceSave", &param_value.to_string())]);
     }
     if let Some(ref apikey) = configuration.api_key {
@@ -488,7 +488,7 @@ pub async fn update_metadata(configuration: &configuration::Configuration, id: i
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_metadata_resource);
+    req_builder = req_builder.json(&p_body_metadata_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;

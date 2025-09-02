@@ -46,9 +46,9 @@ pub enum ListSystemBackupError {
 
 pub async fn create_system_backup_restore_by_id(configuration: &configuration::Configuration, id: i32) -> Result<(), Error<CreateSystemBackupRestoreByIdError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
+    let p_path_id = id;
 
-    let uri_str = format!("{}/api/v1/system/backup/restore/{id}", configuration.base_path, id=p_id);
+    let uri_str = format!("{}/api/v1/system/backup/restore/{id}", configuration.base_path, id=p_path_id);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {
@@ -126,9 +126,9 @@ pub async fn create_system_backup_restore_upload(configuration: &configuration::
 
 pub async fn delete_system_backup(configuration: &configuration::Configuration, id: i32) -> Result<(), Error<DeleteSystemBackupError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
+    let p_path_id = id;
 
-    let uri_str = format!("{}/api/v1/system/backup/{id}", configuration.base_path, id=p_id);
+    let uri_str = format!("{}/api/v1/system/backup/{id}", configuration.base_path, id=p_path_id);
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {

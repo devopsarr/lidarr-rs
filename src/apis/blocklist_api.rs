@@ -39,9 +39,9 @@ pub enum GetBlocklistError {
 
 pub async fn delete_blocklist(configuration: &configuration::Configuration, id: i32) -> Result<(), Error<DeleteBlocklistError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
+    let p_path_id = id;
 
-    let uri_str = format!("{}/api/v1/blocklist/{id}", configuration.base_path, id=p_id);
+    let uri_str = format!("{}/api/v1/blocklist/{id}", configuration.base_path, id=p_path_id);
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {
@@ -80,7 +80,7 @@ pub async fn delete_blocklist(configuration: &configuration::Configuration, id: 
 
 pub async fn delete_blocklist_bulk(configuration: &configuration::Configuration, blocklist_bulk_resource: Option<models::BlocklistBulkResource>) -> Result<(), Error<DeleteBlocklistBulkError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_blocklist_bulk_resource = blocklist_bulk_resource;
+    let p_body_blocklist_bulk_resource = blocklist_bulk_resource;
 
     let uri_str = format!("{}/api/v1/blocklist/bulk", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
@@ -104,7 +104,7 @@ pub async fn delete_blocklist_bulk(configuration: &configuration::Configuration,
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_blocklist_bulk_resource);
+    req_builder = req_builder.json(&p_body_blocklist_bulk_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -122,24 +122,24 @@ pub async fn delete_blocklist_bulk(configuration: &configuration::Configuration,
 
 pub async fn get_blocklist(configuration: &configuration::Configuration, page: Option<i32>, page_size: Option<i32>, sort_key: Option<&str>, sort_direction: Option<models::SortDirection>) -> Result<models::BlocklistResourcePagingResource, Error<GetBlocklistError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_page = page;
-    let p_page_size = page_size;
-    let p_sort_key = sort_key;
-    let p_sort_direction = sort_direction;
+    let p_query_page = page;
+    let p_query_page_size = page_size;
+    let p_query_sort_key = sort_key;
+    let p_query_sort_direction = sort_direction;
 
     let uri_str = format!("{}/api/v1/blocklist", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_page {
+    if let Some(ref param_value) = p_query_page {
         req_builder = req_builder.query(&[("page", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_page_size {
+    if let Some(ref param_value) = p_query_page_size {
         req_builder = req_builder.query(&[("pageSize", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_sort_key {
+    if let Some(ref param_value) = p_query_sort_key {
         req_builder = req_builder.query(&[("sortKey", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_sort_direction {
+    if let Some(ref param_value) = p_query_sort_direction {
         req_builder = req_builder.query(&[("sortDirection", &param_value.to_string())]);
     }
     if let Some(ref apikey) = configuration.api_key {

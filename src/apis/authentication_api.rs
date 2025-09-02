@@ -32,15 +32,15 @@ pub enum GetLogoutError {
 
 pub async fn create_login(configuration: &configuration::Configuration, return_url: Option<&str>, username: Option<&str>, password: Option<&str>, remember_me: Option<&str>) -> Result<(), Error<CreateLoginError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_return_url = return_url;
-    let p_username = username;
-    let p_password = password;
-    let p_remember_me = remember_me;
+    let p_query_return_url = return_url;
+    let p_form_username = username;
+    let p_form_password = password;
+    let p_form_remember_me = remember_me;
 
     let uri_str = format!("{}/login", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_return_url {
+    if let Some(ref param_value) = p_query_return_url {
         req_builder = req_builder.query(&[("returnUrl", &param_value.to_string())]);
     }
     if let Some(ref apikey) = configuration.api_key {
@@ -63,13 +63,13 @@ pub async fn create_login(configuration: &configuration::Configuration, return_u
         req_builder = req_builder.header("X-Api-Key", value);
     };
     let mut multipart_form = reqwest::multipart::Form::new();
-    if let Some(param_value) = p_username {
+    if let Some(param_value) = p_form_username {
         multipart_form = multipart_form.text("username", param_value.to_string());
     }
-    if let Some(param_value) = p_password {
+    if let Some(param_value) = p_form_password {
         multipart_form = multipart_form.text("password", param_value.to_string());
     }
-    if let Some(param_value) = p_remember_me {
+    if let Some(param_value) = p_form_remember_me {
         multipart_form = multipart_form.text("rememberMe", param_value.to_string());
     }
     req_builder = req_builder.multipart(multipart_form);

@@ -32,9 +32,9 @@ pub enum ListLogFileUpdateError {
 
 pub async fn get_log_file_update_by_filename(configuration: &configuration::Configuration, filename: &str) -> Result<(), Error<GetLogFileUpdateByFilenameError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_filename = filename;
+    let p_path_filename = filename;
 
-    let uri_str = format!("{}/api/v1/log/file/update/{filename}", configuration.base_path, filename=crate::apis::urlencode(p_filename));
+    let uri_str = format!("{}/api/v1/log/file/update/{filename}", configuration.base_path, filename=crate::apis::urlencode(p_path_filename));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {

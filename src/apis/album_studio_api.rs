@@ -25,7 +25,7 @@ pub enum CreateAlbumStudioError {
 
 pub async fn create_album_studio(configuration: &configuration::Configuration, album_studio_resource: Option<models::AlbumStudioResource>) -> Result<(), Error<CreateAlbumStudioError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_album_studio_resource = album_studio_resource;
+    let p_body_album_studio_resource = album_studio_resource;
 
     let uri_str = format!("{}/api/v1/albumstudio", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -49,7 +49,7 @@ pub async fn create_album_studio(configuration: &configuration::Configuration, a
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_album_studio_resource);
+    req_builder = req_builder.json(&p_body_album_studio_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
