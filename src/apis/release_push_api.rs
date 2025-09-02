@@ -25,7 +25,7 @@ pub enum CreateReleasePushError {
 
 pub async fn create_release_push(configuration: &configuration::Configuration, release_resource: Option<models::ReleaseResource>) -> Result<models::ReleaseResource, Error<CreateReleasePushError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_release_resource = release_resource;
+    let p_body_release_resource = release_resource;
 
     let uri_str = format!("{}/api/v1/release/push", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -49,7 +49,7 @@ pub async fn create_release_push(configuration: &configuration::Configuration, r
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_release_resource);
+    req_builder = req_builder.json(&p_body_release_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;

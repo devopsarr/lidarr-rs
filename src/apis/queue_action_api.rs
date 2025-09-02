@@ -32,7 +32,7 @@ pub enum CreateQueueGrabByIdError {
 
 pub async fn create_queue_grab_bulk(configuration: &configuration::Configuration, queue_bulk_resource: Option<models::QueueBulkResource>) -> Result<(), Error<CreateQueueGrabBulkError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_queue_bulk_resource = queue_bulk_resource;
+    let p_body_queue_bulk_resource = queue_bulk_resource;
 
     let uri_str = format!("{}/api/v1/queue/grab/bulk", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -56,7 +56,7 @@ pub async fn create_queue_grab_bulk(configuration: &configuration::Configuration
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_queue_bulk_resource);
+    req_builder = req_builder.json(&p_body_queue_bulk_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -74,9 +74,9 @@ pub async fn create_queue_grab_bulk(configuration: &configuration::Configuration
 
 pub async fn create_queue_grab_by_id(configuration: &configuration::Configuration, id: i32) -> Result<(), Error<CreateQueueGrabByIdError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
+    let p_path_id = id;
 
-    let uri_str = format!("{}/api/v1/queue/grab/{id}", configuration.base_path, id=p_id);
+    let uri_str = format!("{}/api/v1/queue/grab/{id}", configuration.base_path, id=p_path_id);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {

@@ -39,20 +39,20 @@ pub enum GetFileSystemTypeError {
 
 pub async fn get_file_system(configuration: &configuration::Configuration, path: Option<&str>, include_files: Option<bool>, allow_folders_without_trailing_slashes: Option<bool>) -> Result<(), Error<GetFileSystemError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_path = path;
-    let p_include_files = include_files;
-    let p_allow_folders_without_trailing_slashes = allow_folders_without_trailing_slashes;
+    let p_query_path = path;
+    let p_query_include_files = include_files;
+    let p_query_allow_folders_without_trailing_slashes = allow_folders_without_trailing_slashes;
 
     let uri_str = format!("{}/api/v1/filesystem", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_path {
+    if let Some(ref param_value) = p_query_path {
         req_builder = req_builder.query(&[("path", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_include_files {
+    if let Some(ref param_value) = p_query_include_files {
         req_builder = req_builder.query(&[("includeFiles", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_allow_folders_without_trailing_slashes {
+    if let Some(ref param_value) = p_query_allow_folders_without_trailing_slashes {
         req_builder = req_builder.query(&[("allowFoldersWithoutTrailingSlashes", &param_value.to_string())]);
     }
     if let Some(ref apikey) = configuration.api_key {
@@ -91,12 +91,12 @@ pub async fn get_file_system(configuration: &configuration::Configuration, path:
 
 pub async fn get_file_system_mediafiles(configuration: &configuration::Configuration, path: Option<&str>) -> Result<(), Error<GetFileSystemMediafilesError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_path = path;
+    let p_query_path = path;
 
     let uri_str = format!("{}/api/v1/filesystem/mediafiles", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_path {
+    if let Some(ref param_value) = p_query_path {
         req_builder = req_builder.query(&[("path", &param_value.to_string())]);
     }
     if let Some(ref apikey) = configuration.api_key {
@@ -135,12 +135,12 @@ pub async fn get_file_system_mediafiles(configuration: &configuration::Configura
 
 pub async fn get_file_system_type(configuration: &configuration::Configuration, path: Option<&str>) -> Result<(), Error<GetFileSystemTypeError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_path = path;
+    let p_query_path = path;
 
     let uri_str = format!("{}/api/v1/filesystem/type", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_path {
+    if let Some(ref param_value) = p_query_path {
         req_builder = req_builder.query(&[("path", &param_value.to_string())]);
     }
     if let Some(ref apikey) = configuration.api_key {

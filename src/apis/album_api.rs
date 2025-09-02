@@ -60,7 +60,7 @@ pub enum UpdateAlbumError {
 
 pub async fn create_album(configuration: &configuration::Configuration, album_resource: Option<models::AlbumResource>) -> Result<models::AlbumResource, Error<CreateAlbumError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_album_resource = album_resource;
+    let p_body_album_resource = album_resource;
 
     let uri_str = format!("{}/api/v1/album", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -84,7 +84,7 @@ pub async fn create_album(configuration: &configuration::Configuration, album_re
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_album_resource);
+    req_builder = req_builder.json(&p_body_album_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -113,17 +113,17 @@ pub async fn create_album(configuration: &configuration::Configuration, album_re
 
 pub async fn delete_album(configuration: &configuration::Configuration, id: i32, delete_files: Option<bool>, add_import_list_exclusion: Option<bool>) -> Result<(), Error<DeleteAlbumError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_delete_files = delete_files;
-    let p_add_import_list_exclusion = add_import_list_exclusion;
+    let p_path_id = id;
+    let p_query_delete_files = delete_files;
+    let p_query_add_import_list_exclusion = add_import_list_exclusion;
 
-    let uri_str = format!("{}/api/v1/album/{id}", configuration.base_path, id=p_id);
+    let uri_str = format!("{}/api/v1/album/{id}", configuration.base_path, id=p_path_id);
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
 
-    if let Some(ref param_value) = p_delete_files {
+    if let Some(ref param_value) = p_query_delete_files {
         req_builder = req_builder.query(&[("deleteFiles", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_add_import_list_exclusion {
+    if let Some(ref param_value) = p_query_add_import_list_exclusion {
         req_builder = req_builder.query(&[("addImportListExclusion", &param_value.to_string())]);
     }
     if let Some(ref apikey) = configuration.api_key {
@@ -162,9 +162,9 @@ pub async fn delete_album(configuration: &configuration::Configuration, id: i32,
 
 pub async fn get_album_by_id(configuration: &configuration::Configuration, id: i32) -> Result<models::AlbumResource, Error<GetAlbumByIdError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
+    let p_path_id = id;
 
-    let uri_str = format!("{}/api/v1/album/{id}", configuration.base_path, id=p_id);
+    let uri_str = format!("{}/api/v1/album/{id}", configuration.base_path, id=p_path_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {
@@ -214,27 +214,27 @@ pub async fn get_album_by_id(configuration: &configuration::Configuration, id: i
 
 pub async fn list_album(configuration: &configuration::Configuration, artist_id: Option<i32>, album_ids: Option<Vec<i32>>, foreign_album_id: Option<&str>, include_all_artist_albums: Option<bool>) -> Result<Vec<models::AlbumResource>, Error<ListAlbumError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_artist_id = artist_id;
-    let p_album_ids = album_ids;
-    let p_foreign_album_id = foreign_album_id;
-    let p_include_all_artist_albums = include_all_artist_albums;
+    let p_query_artist_id = artist_id;
+    let p_query_album_ids = album_ids;
+    let p_query_foreign_album_id = foreign_album_id;
+    let p_query_include_all_artist_albums = include_all_artist_albums;
 
     let uri_str = format!("{}/api/v1/album", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_artist_id {
+    if let Some(ref param_value) = p_query_artist_id {
         req_builder = req_builder.query(&[("artistId", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_album_ids {
+    if let Some(ref param_value) = p_query_album_ids {
         req_builder = match "multi" {
             "multi" => req_builder.query(&param_value.into_iter().map(|p| ("albumIds".to_owned(), p.to_string())).collect::<Vec<(std::string::String, std::string::String)>>()),
             _ => req_builder.query(&[("albumIds", &param_value.into_iter().map(|p| p.to_string()).collect::<Vec<String>>().join(",").to_string())]),
         };
     }
-    if let Some(ref param_value) = p_foreign_album_id {
+    if let Some(ref param_value) = p_query_foreign_album_id {
         req_builder = req_builder.query(&[("foreignAlbumId", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_include_all_artist_albums {
+    if let Some(ref param_value) = p_query_include_all_artist_albums {
         req_builder = req_builder.query(&[("includeAllArtistAlbums", &param_value.to_string())]);
     }
     if let Some(ref apikey) = configuration.api_key {
@@ -284,7 +284,7 @@ pub async fn list_album(configuration: &configuration::Configuration, artist_id:
 
 pub async fn put_album_monitor(configuration: &configuration::Configuration, albums_monitored_resource: Option<models::AlbumsMonitoredResource>) -> Result<(), Error<PutAlbumMonitorError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_albums_monitored_resource = albums_monitored_resource;
+    let p_body_albums_monitored_resource = albums_monitored_resource;
 
     let uri_str = format!("{}/api/v1/album/monitor", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::PUT, &uri_str);
@@ -308,7 +308,7 @@ pub async fn put_album_monitor(configuration: &configuration::Configuration, alb
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_albums_monitored_resource);
+    req_builder = req_builder.json(&p_body_albums_monitored_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -326,10 +326,10 @@ pub async fn put_album_monitor(configuration: &configuration::Configuration, alb
 
 pub async fn update_album(configuration: &configuration::Configuration, id: &str, album_resource: Option<models::AlbumResource>) -> Result<models::AlbumResource, Error<UpdateAlbumError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_album_resource = album_resource;
+    let p_path_id = id;
+    let p_body_album_resource = album_resource;
 
-    let uri_str = format!("{}/api/v1/album/{id}", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/api/v1/album/{id}", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::PUT, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {
@@ -351,7 +351,7 @@ pub async fn update_album(configuration: &configuration::Configuration, id: &str
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_album_resource);
+    req_builder = req_builder.json(&p_body_album_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;

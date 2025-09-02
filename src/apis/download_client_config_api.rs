@@ -89,9 +89,9 @@ pub async fn get_download_client_config(configuration: &configuration::Configura
 
 pub async fn get_download_client_config_by_id(configuration: &configuration::Configuration, id: i32) -> Result<models::DownloadClientConfigResource, Error<GetDownloadClientConfigByIdError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
+    let p_path_id = id;
 
-    let uri_str = format!("{}/api/v1/config/downloadclient/{id}", configuration.base_path, id=p_id);
+    let uri_str = format!("{}/api/v1/config/downloadclient/{id}", configuration.base_path, id=p_path_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {
@@ -141,10 +141,10 @@ pub async fn get_download_client_config_by_id(configuration: &configuration::Con
 
 pub async fn update_download_client_config(configuration: &configuration::Configuration, id: &str, download_client_config_resource: Option<models::DownloadClientConfigResource>) -> Result<models::DownloadClientConfigResource, Error<UpdateDownloadClientConfigError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_download_client_config_resource = download_client_config_resource;
+    let p_path_id = id;
+    let p_body_download_client_config_resource = download_client_config_resource;
 
-    let uri_str = format!("{}/api/v1/config/downloadclient/{id}", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/api/v1/config/downloadclient/{id}", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::PUT, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {
@@ -166,7 +166,7 @@ pub async fn update_download_client_config(configuration: &configuration::Config
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_download_client_config_resource);
+    req_builder = req_builder.json(&p_body_download_client_config_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;

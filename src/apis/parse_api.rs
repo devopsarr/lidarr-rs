@@ -25,12 +25,12 @@ pub enum GetParseError {
 
 pub async fn get_parse(configuration: &configuration::Configuration, title: Option<&str>) -> Result<models::ParseResource, Error<GetParseError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_title = title;
+    let p_query_title = title;
 
     let uri_str = format!("{}/api/v1/parse", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_title {
+    if let Some(ref param_value) = p_query_title {
         req_builder = req_builder.query(&[("title", &param_value.to_string())]);
     }
     if let Some(ref apikey) = configuration.api_key {

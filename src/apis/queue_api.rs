@@ -39,25 +39,25 @@ pub enum GetQueueError {
 
 pub async fn delete_queue(configuration: &configuration::Configuration, id: i32, remove_from_client: Option<bool>, blocklist: Option<bool>, skip_redownload: Option<bool>, change_category: Option<bool>) -> Result<(), Error<DeleteQueueError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_remove_from_client = remove_from_client;
-    let p_blocklist = blocklist;
-    let p_skip_redownload = skip_redownload;
-    let p_change_category = change_category;
+    let p_path_id = id;
+    let p_query_remove_from_client = remove_from_client;
+    let p_query_blocklist = blocklist;
+    let p_query_skip_redownload = skip_redownload;
+    let p_query_change_category = change_category;
 
-    let uri_str = format!("{}/api/v1/queue/{id}", configuration.base_path, id=p_id);
+    let uri_str = format!("{}/api/v1/queue/{id}", configuration.base_path, id=p_path_id);
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
 
-    if let Some(ref param_value) = p_remove_from_client {
+    if let Some(ref param_value) = p_query_remove_from_client {
         req_builder = req_builder.query(&[("removeFromClient", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_blocklist {
+    if let Some(ref param_value) = p_query_blocklist {
         req_builder = req_builder.query(&[("blocklist", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_skip_redownload {
+    if let Some(ref param_value) = p_query_skip_redownload {
         req_builder = req_builder.query(&[("skipRedownload", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_change_category {
+    if let Some(ref param_value) = p_query_change_category {
         req_builder = req_builder.query(&[("changeCategory", &param_value.to_string())]);
     }
     if let Some(ref apikey) = configuration.api_key {
@@ -96,25 +96,25 @@ pub async fn delete_queue(configuration: &configuration::Configuration, id: i32,
 
 pub async fn delete_queue_bulk(configuration: &configuration::Configuration, remove_from_client: Option<bool>, blocklist: Option<bool>, skip_redownload: Option<bool>, change_category: Option<bool>, queue_bulk_resource: Option<models::QueueBulkResource>) -> Result<(), Error<DeleteQueueBulkError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_remove_from_client = remove_from_client;
-    let p_blocklist = blocklist;
-    let p_skip_redownload = skip_redownload;
-    let p_change_category = change_category;
-    let p_queue_bulk_resource = queue_bulk_resource;
+    let p_query_remove_from_client = remove_from_client;
+    let p_query_blocklist = blocklist;
+    let p_query_skip_redownload = skip_redownload;
+    let p_query_change_category = change_category;
+    let p_body_queue_bulk_resource = queue_bulk_resource;
 
     let uri_str = format!("{}/api/v1/queue/bulk", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
 
-    if let Some(ref param_value) = p_remove_from_client {
+    if let Some(ref param_value) = p_query_remove_from_client {
         req_builder = req_builder.query(&[("removeFromClient", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_blocklist {
+    if let Some(ref param_value) = p_query_blocklist {
         req_builder = req_builder.query(&[("blocklist", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_skip_redownload {
+    if let Some(ref param_value) = p_query_skip_redownload {
         req_builder = req_builder.query(&[("skipRedownload", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_change_category {
+    if let Some(ref param_value) = p_query_change_category {
         req_builder = req_builder.query(&[("changeCategory", &param_value.to_string())]);
     }
     if let Some(ref apikey) = configuration.api_key {
@@ -136,7 +136,7 @@ pub async fn delete_queue_bulk(configuration: &configuration::Configuration, rem
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_queue_bulk_resource);
+    req_builder = req_builder.json(&p_body_queue_bulk_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -154,51 +154,51 @@ pub async fn delete_queue_bulk(configuration: &configuration::Configuration, rem
 
 pub async fn get_queue(configuration: &configuration::Configuration, page: Option<i32>, page_size: Option<i32>, sort_key: Option<&str>, sort_direction: Option<models::SortDirection>, include_unknown_artist_items: Option<bool>, include_artist: Option<bool>, include_album: Option<bool>, artist_ids: Option<Vec<i32>>, protocol: Option<models::DownloadProtocol>, quality: Option<Vec<i32>>) -> Result<models::QueueResourcePagingResource, Error<GetQueueError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_page = page;
-    let p_page_size = page_size;
-    let p_sort_key = sort_key;
-    let p_sort_direction = sort_direction;
-    let p_include_unknown_artist_items = include_unknown_artist_items;
-    let p_include_artist = include_artist;
-    let p_include_album = include_album;
-    let p_artist_ids = artist_ids;
-    let p_protocol = protocol;
-    let p_quality = quality;
+    let p_query_page = page;
+    let p_query_page_size = page_size;
+    let p_query_sort_key = sort_key;
+    let p_query_sort_direction = sort_direction;
+    let p_query_include_unknown_artist_items = include_unknown_artist_items;
+    let p_query_include_artist = include_artist;
+    let p_query_include_album = include_album;
+    let p_query_artist_ids = artist_ids;
+    let p_query_protocol = protocol;
+    let p_query_quality = quality;
 
     let uri_str = format!("{}/api/v1/queue", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_page {
+    if let Some(ref param_value) = p_query_page {
         req_builder = req_builder.query(&[("page", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_page_size {
+    if let Some(ref param_value) = p_query_page_size {
         req_builder = req_builder.query(&[("pageSize", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_sort_key {
+    if let Some(ref param_value) = p_query_sort_key {
         req_builder = req_builder.query(&[("sortKey", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_sort_direction {
+    if let Some(ref param_value) = p_query_sort_direction {
         req_builder = req_builder.query(&[("sortDirection", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_include_unknown_artist_items {
+    if let Some(ref param_value) = p_query_include_unknown_artist_items {
         req_builder = req_builder.query(&[("includeUnknownArtistItems", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_include_artist {
+    if let Some(ref param_value) = p_query_include_artist {
         req_builder = req_builder.query(&[("includeArtist", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_include_album {
+    if let Some(ref param_value) = p_query_include_album {
         req_builder = req_builder.query(&[("includeAlbum", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_artist_ids {
+    if let Some(ref param_value) = p_query_artist_ids {
         req_builder = match "multi" {
             "multi" => req_builder.query(&param_value.into_iter().map(|p| ("artistIds".to_owned(), p.to_string())).collect::<Vec<(std::string::String, std::string::String)>>()),
             _ => req_builder.query(&[("artistIds", &param_value.into_iter().map(|p| p.to_string()).collect::<Vec<String>>().join(",").to_string())]),
         };
     }
-    if let Some(ref param_value) = p_protocol {
+    if let Some(ref param_value) = p_query_protocol {
         req_builder = req_builder.query(&[("protocol", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_quality {
+    if let Some(ref param_value) = p_query_quality {
         req_builder = match "multi" {
             "multi" => req_builder.query(&param_value.into_iter().map(|p| ("quality".to_owned(), p.to_string())).collect::<Vec<(std::string::String, std::string::String)>>()),
             _ => req_builder.query(&[("quality", &param_value.into_iter().map(|p| p.to_string()).collect::<Vec<String>>().join(",").to_string())]),

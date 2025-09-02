@@ -25,16 +25,16 @@ pub enum ListRenameError {
 
 pub async fn list_rename(configuration: &configuration::Configuration, artist_id: Option<i32>, album_id: Option<i32>) -> Result<Vec<models::RenameTrackResource>, Error<ListRenameError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_artist_id = artist_id;
-    let p_album_id = album_id;
+    let p_query_artist_id = artist_id;
+    let p_query_album_id = album_id;
 
     let uri_str = format!("{}/api/v1/rename", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_artist_id {
+    if let Some(ref param_value) = p_query_artist_id {
         req_builder = req_builder.query(&[("artistId", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_album_id {
+    if let Some(ref param_value) = p_query_album_id {
         req_builder = req_builder.query(&[("albumId", &param_value.to_string())]);
     }
     if let Some(ref apikey) = configuration.api_key {

@@ -32,9 +32,9 @@ pub enum ListTagDetailError {
 
 pub async fn get_tag_detail_by_id(configuration: &configuration::Configuration, id: i32) -> Result<models::TagDetailsResource, Error<GetTagDetailByIdError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
+    let p_path_id = id;
 
-    let uri_str = format!("{}/api/v1/tag/detail/{id}", configuration.base_path, id=p_id);
+    let uri_str = format!("{}/api/v1/tag/detail/{id}", configuration.base_path, id=p_path_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {

@@ -32,9 +32,9 @@ pub enum ListTrackError {
 
 pub async fn get_track_by_id(configuration: &configuration::Configuration, id: i32) -> Result<models::TrackResource, Error<GetTrackByIdError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
+    let p_path_id = id;
 
-    let uri_str = format!("{}/api/v1/track/{id}", configuration.base_path, id=p_id);
+    let uri_str = format!("{}/api/v1/track/{id}", configuration.base_path, id=p_path_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {
@@ -84,24 +84,24 @@ pub async fn get_track_by_id(configuration: &configuration::Configuration, id: i
 
 pub async fn list_track(configuration: &configuration::Configuration, artist_id: Option<i32>, album_id: Option<i32>, album_release_id: Option<i32>, track_ids: Option<Vec<i32>>) -> Result<Vec<models::TrackResource>, Error<ListTrackError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_artist_id = artist_id;
-    let p_album_id = album_id;
-    let p_album_release_id = album_release_id;
-    let p_track_ids = track_ids;
+    let p_query_artist_id = artist_id;
+    let p_query_album_id = album_id;
+    let p_query_album_release_id = album_release_id;
+    let p_query_track_ids = track_ids;
 
     let uri_str = format!("{}/api/v1/track", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_artist_id {
+    if let Some(ref param_value) = p_query_artist_id {
         req_builder = req_builder.query(&[("artistId", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_album_id {
+    if let Some(ref param_value) = p_query_album_id {
         req_builder = req_builder.query(&[("albumId", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_album_release_id {
+    if let Some(ref param_value) = p_query_album_release_id {
         req_builder = req_builder.query(&[("albumReleaseId", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_track_ids {
+    if let Some(ref param_value) = p_query_track_ids {
         req_builder = match "multi" {
             "multi" => req_builder.query(&param_value.into_iter().map(|p| ("trackIds".to_owned(), p.to_string())).collect::<Vec<(std::string::String, std::string::String)>>()),
             _ => req_builder.query(&[("trackIds", &param_value.into_iter().map(|p| p.to_string()).collect::<Vec<String>>().join(",").to_string())]),

@@ -32,7 +32,7 @@ pub enum ListManualImportError {
 
 pub async fn create_manual_import(configuration: &configuration::Configuration, manual_import_update_resource: Option<Vec<models::ManualImportUpdateResource>>) -> Result<(), Error<CreateManualImportError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_manual_import_update_resource = manual_import_update_resource;
+    let p_body_manual_import_update_resource = manual_import_update_resource;
 
     let uri_str = format!("{}/api/v1/manualimport", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -56,7 +56,7 @@ pub async fn create_manual_import(configuration: &configuration::Configuration, 
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_manual_import_update_resource);
+    req_builder = req_builder.json(&p_body_manual_import_update_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -74,28 +74,28 @@ pub async fn create_manual_import(configuration: &configuration::Configuration, 
 
 pub async fn list_manual_import(configuration: &configuration::Configuration, folder: Option<&str>, download_id: Option<&str>, artist_id: Option<i32>, filter_existing_files: Option<bool>, replace_existing_files: Option<bool>) -> Result<Vec<models::ManualImportResource>, Error<ListManualImportError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_folder = folder;
-    let p_download_id = download_id;
-    let p_artist_id = artist_id;
-    let p_filter_existing_files = filter_existing_files;
-    let p_replace_existing_files = replace_existing_files;
+    let p_query_folder = folder;
+    let p_query_download_id = download_id;
+    let p_query_artist_id = artist_id;
+    let p_query_filter_existing_files = filter_existing_files;
+    let p_query_replace_existing_files = replace_existing_files;
 
     let uri_str = format!("{}/api/v1/manualimport", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_folder {
+    if let Some(ref param_value) = p_query_folder {
         req_builder = req_builder.query(&[("folder", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_download_id {
+    if let Some(ref param_value) = p_query_download_id {
         req_builder = req_builder.query(&[("downloadId", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_artist_id {
+    if let Some(ref param_value) = p_query_artist_id {
         req_builder = req_builder.query(&[("artistId", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_filter_existing_files {
+    if let Some(ref param_value) = p_query_filter_existing_files {
         req_builder = req_builder.query(&[("filterExistingFiles", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_replace_existing_files {
+    if let Some(ref param_value) = p_query_replace_existing_files {
         req_builder = req_builder.query(&[("replaceExistingFiles", &param_value.to_string())]);
     }
     if let Some(ref apikey) = configuration.api_key {

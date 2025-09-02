@@ -32,10 +32,10 @@ pub enum GetMediaCoverArtistByFilenameError {
 
 pub async fn get_media_cover_album_by_filename(configuration: &configuration::Configuration, album_id: i32, filename: &str) -> Result<(), Error<GetMediaCoverAlbumByFilenameError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_album_id = album_id;
-    let p_filename = filename;
+    let p_path_album_id = album_id;
+    let p_path_filename = filename;
 
-    let uri_str = format!("{}/api/v1/mediacover/album/{albumId}/{filename}", configuration.base_path, albumId=p_album_id, filename=crate::apis::urlencode(p_filename));
+    let uri_str = format!("{}/api/v1/mediacover/album/{albumId}/{filename}", configuration.base_path, albumId=p_path_album_id, filename=crate::apis::urlencode(p_path_filename));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {
@@ -74,10 +74,10 @@ pub async fn get_media_cover_album_by_filename(configuration: &configuration::Co
 
 pub async fn get_media_cover_artist_by_filename(configuration: &configuration::Configuration, artist_id: i32, filename: &str) -> Result<(), Error<GetMediaCoverArtistByFilenameError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_artist_id = artist_id;
-    let p_filename = filename;
+    let p_path_artist_id = artist_id;
+    let p_path_filename = filename;
 
-    let uri_str = format!("{}/api/v1/mediacover/artist/{artistId}/{filename}", configuration.base_path, artistId=p_artist_id, filename=crate::apis::urlencode(p_filename));
+    let uri_str = format!("{}/api/v1/mediacover/artist/{artistId}/{filename}", configuration.base_path, artistId=p_path_artist_id, filename=crate::apis::urlencode(p_path_filename));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {

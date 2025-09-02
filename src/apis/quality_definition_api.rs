@@ -46,9 +46,9 @@ pub enum UpdateQualityDefinitionError {
 
 pub async fn get_quality_definition_by_id(configuration: &configuration::Configuration, id: i32) -> Result<models::QualityDefinitionResource, Error<GetQualityDefinitionByIdError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
+    let p_path_id = id;
 
-    let uri_str = format!("{}/api/v1/qualitydefinition/{id}", configuration.base_path, id=p_id);
+    let uri_str = format!("{}/api/v1/qualitydefinition/{id}", configuration.base_path, id=p_path_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {
@@ -148,7 +148,7 @@ pub async fn list_quality_definition(configuration: &configuration::Configuratio
 
 pub async fn put_quality_definition_update(configuration: &configuration::Configuration, quality_definition_resource: Option<Vec<models::QualityDefinitionResource>>) -> Result<(), Error<PutQualityDefinitionUpdateError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_quality_definition_resource = quality_definition_resource;
+    let p_body_quality_definition_resource = quality_definition_resource;
 
     let uri_str = format!("{}/api/v1/qualitydefinition/update", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::PUT, &uri_str);
@@ -172,7 +172,7 @@ pub async fn put_quality_definition_update(configuration: &configuration::Config
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_quality_definition_resource);
+    req_builder = req_builder.json(&p_body_quality_definition_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -190,10 +190,10 @@ pub async fn put_quality_definition_update(configuration: &configuration::Config
 
 pub async fn update_quality_definition(configuration: &configuration::Configuration, id: &str, quality_definition_resource: Option<models::QualityDefinitionResource>) -> Result<models::QualityDefinitionResource, Error<UpdateQualityDefinitionError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_quality_definition_resource = quality_definition_resource;
+    let p_path_id = id;
+    let p_body_quality_definition_resource = quality_definition_resource;
 
-    let uri_str = format!("{}/api/v1/qualitydefinition/{id}", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/api/v1/qualitydefinition/{id}", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::PUT, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {
@@ -215,7 +215,7 @@ pub async fn update_quality_definition(configuration: &configuration::Configurat
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_quality_definition_resource);
+    req_builder = req_builder.json(&p_body_quality_definition_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;

@@ -60,9 +60,9 @@ pub enum UpdateTrackFileError {
 
 pub async fn delete_track_file(configuration: &configuration::Configuration, id: i32) -> Result<(), Error<DeleteTrackFileError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
+    let p_path_id = id;
 
-    let uri_str = format!("{}/api/v1/trackfile/{id}", configuration.base_path, id=p_id);
+    let uri_str = format!("{}/api/v1/trackfile/{id}", configuration.base_path, id=p_path_id);
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {
@@ -101,7 +101,7 @@ pub async fn delete_track_file(configuration: &configuration::Configuration, id:
 
 pub async fn delete_track_file_bulk(configuration: &configuration::Configuration, track_file_list_resource: Option<models::TrackFileListResource>) -> Result<(), Error<DeleteTrackFileBulkError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_track_file_list_resource = track_file_list_resource;
+    let p_body_track_file_list_resource = track_file_list_resource;
 
     let uri_str = format!("{}/api/v1/trackfile/bulk", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
@@ -125,7 +125,7 @@ pub async fn delete_track_file_bulk(configuration: &configuration::Configuration
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_track_file_list_resource);
+    req_builder = req_builder.json(&p_body_track_file_list_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -143,9 +143,9 @@ pub async fn delete_track_file_bulk(configuration: &configuration::Configuration
 
 pub async fn get_track_file_by_id(configuration: &configuration::Configuration, id: i32) -> Result<models::TrackFileResource, Error<GetTrackFileByIdError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
+    let p_path_id = id;
 
-    let uri_str = format!("{}/api/v1/trackfile/{id}", configuration.base_path, id=p_id);
+    let uri_str = format!("{}/api/v1/trackfile/{id}", configuration.base_path, id=p_path_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {
@@ -195,30 +195,30 @@ pub async fn get_track_file_by_id(configuration: &configuration::Configuration, 
 
 pub async fn list_track_file(configuration: &configuration::Configuration, artist_id: Option<i32>, track_file_ids: Option<Vec<i32>>, album_id: Option<Vec<i32>>, unmapped: Option<bool>) -> Result<Vec<models::TrackFileResource>, Error<ListTrackFileError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_artist_id = artist_id;
-    let p_track_file_ids = track_file_ids;
-    let p_album_id = album_id;
-    let p_unmapped = unmapped;
+    let p_query_artist_id = artist_id;
+    let p_query_track_file_ids = track_file_ids;
+    let p_query_album_id = album_id;
+    let p_query_unmapped = unmapped;
 
     let uri_str = format!("{}/api/v1/trackfile", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_artist_id {
+    if let Some(ref param_value) = p_query_artist_id {
         req_builder = req_builder.query(&[("artistId", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_track_file_ids {
+    if let Some(ref param_value) = p_query_track_file_ids {
         req_builder = match "multi" {
             "multi" => req_builder.query(&param_value.into_iter().map(|p| ("trackFileIds".to_owned(), p.to_string())).collect::<Vec<(std::string::String, std::string::String)>>()),
             _ => req_builder.query(&[("trackFileIds", &param_value.into_iter().map(|p| p.to_string()).collect::<Vec<String>>().join(",").to_string())]),
         };
     }
-    if let Some(ref param_value) = p_album_id {
+    if let Some(ref param_value) = p_query_album_id {
         req_builder = match "multi" {
             "multi" => req_builder.query(&param_value.into_iter().map(|p| ("albumId".to_owned(), p.to_string())).collect::<Vec<(std::string::String, std::string::String)>>()),
             _ => req_builder.query(&[("albumId", &param_value.into_iter().map(|p| p.to_string()).collect::<Vec<String>>().join(",").to_string())]),
         };
     }
-    if let Some(ref param_value) = p_unmapped {
+    if let Some(ref param_value) = p_query_unmapped {
         req_builder = req_builder.query(&[("unmapped", &param_value.to_string())]);
     }
     if let Some(ref apikey) = configuration.api_key {
@@ -268,7 +268,7 @@ pub async fn list_track_file(configuration: &configuration::Configuration, artis
 
 pub async fn put_track_file_editor(configuration: &configuration::Configuration, track_file_list_resource: Option<models::TrackFileListResource>) -> Result<(), Error<PutTrackFileEditorError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_track_file_list_resource = track_file_list_resource;
+    let p_body_track_file_list_resource = track_file_list_resource;
 
     let uri_str = format!("{}/api/v1/trackfile/editor", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::PUT, &uri_str);
@@ -292,7 +292,7 @@ pub async fn put_track_file_editor(configuration: &configuration::Configuration,
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_track_file_list_resource);
+    req_builder = req_builder.json(&p_body_track_file_list_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -310,10 +310,10 @@ pub async fn put_track_file_editor(configuration: &configuration::Configuration,
 
 pub async fn update_track_file(configuration: &configuration::Configuration, id: &str, track_file_resource: Option<models::TrackFileResource>) -> Result<models::TrackFileResource, Error<UpdateTrackFileError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_track_file_resource = track_file_resource;
+    let p_path_id = id;
+    let p_body_track_file_resource = track_file_resource;
 
-    let uri_str = format!("{}/api/v1/trackfile/{id}", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/api/v1/trackfile/{id}", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::PUT, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {
@@ -335,7 +335,7 @@ pub async fn update_track_file(configuration: &configuration::Configuration, id:
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_track_file_resource);
+    req_builder = req_builder.json(&p_body_track_file_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;

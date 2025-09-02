@@ -25,28 +25,28 @@ pub enum GetLogError {
 
 pub async fn get_log(configuration: &configuration::Configuration, page: Option<i32>, page_size: Option<i32>, sort_key: Option<&str>, sort_direction: Option<models::SortDirection>, level: Option<&str>) -> Result<models::LogResourcePagingResource, Error<GetLogError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_page = page;
-    let p_page_size = page_size;
-    let p_sort_key = sort_key;
-    let p_sort_direction = sort_direction;
-    let p_level = level;
+    let p_query_page = page;
+    let p_query_page_size = page_size;
+    let p_query_sort_key = sort_key;
+    let p_query_sort_direction = sort_direction;
+    let p_query_level = level;
 
     let uri_str = format!("{}/api/v1/log", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_page {
+    if let Some(ref param_value) = p_query_page {
         req_builder = req_builder.query(&[("page", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_page_size {
+    if let Some(ref param_value) = p_query_page_size {
         req_builder = req_builder.query(&[("pageSize", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_sort_key {
+    if let Some(ref param_value) = p_query_sort_key {
         req_builder = req_builder.query(&[("sortKey", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_sort_direction {
+    if let Some(ref param_value) = p_query_sort_direction {
         req_builder = req_builder.query(&[("sortDirection", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_level {
+    if let Some(ref param_value) = p_query_level {
         req_builder = req_builder.query(&[("level", &param_value.to_string())]);
     }
     if let Some(ref apikey) = configuration.api_key {

@@ -96,9 +96,9 @@ pub async fn get_naming_config(configuration: &configuration::Configuration, ) -
 
 pub async fn get_naming_config_by_id(configuration: &configuration::Configuration, id: i32) -> Result<models::NamingConfigResource, Error<GetNamingConfigByIdError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
+    let p_path_id = id;
 
-    let uri_str = format!("{}/api/v1/config/naming/{id}", configuration.base_path, id=p_id);
+    let uri_str = format!("{}/api/v1/config/naming/{id}", configuration.base_path, id=p_path_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {
@@ -148,64 +148,64 @@ pub async fn get_naming_config_by_id(configuration: &configuration::Configuratio
 
 pub async fn get_naming_config_examples(configuration: &configuration::Configuration, rename_tracks: Option<bool>, replace_illegal_characters: Option<bool>, colon_replacement_format: Option<i32>, standard_track_format: Option<&str>, multi_disc_track_format: Option<&str>, artist_folder_format: Option<&str>, include_artist_name: Option<bool>, include_album_title: Option<bool>, include_quality: Option<bool>, replace_spaces: Option<bool>, separator: Option<&str>, number_style: Option<&str>, id: Option<i32>, resource_name: Option<&str>) -> Result<(), Error<GetNamingConfigExamplesError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_rename_tracks = rename_tracks;
-    let p_replace_illegal_characters = replace_illegal_characters;
-    let p_colon_replacement_format = colon_replacement_format;
-    let p_standard_track_format = standard_track_format;
-    let p_multi_disc_track_format = multi_disc_track_format;
-    let p_artist_folder_format = artist_folder_format;
-    let p_include_artist_name = include_artist_name;
-    let p_include_album_title = include_album_title;
-    let p_include_quality = include_quality;
-    let p_replace_spaces = replace_spaces;
-    let p_separator = separator;
-    let p_number_style = number_style;
-    let p_id = id;
-    let p_resource_name = resource_name;
+    let p_query_rename_tracks = rename_tracks;
+    let p_query_replace_illegal_characters = replace_illegal_characters;
+    let p_query_colon_replacement_format = colon_replacement_format;
+    let p_query_standard_track_format = standard_track_format;
+    let p_query_multi_disc_track_format = multi_disc_track_format;
+    let p_query_artist_folder_format = artist_folder_format;
+    let p_query_include_artist_name = include_artist_name;
+    let p_query_include_album_title = include_album_title;
+    let p_query_include_quality = include_quality;
+    let p_query_replace_spaces = replace_spaces;
+    let p_query_separator = separator;
+    let p_query_number_style = number_style;
+    let p_query_id = id;
+    let p_query_resource_name = resource_name;
 
     let uri_str = format!("{}/api/v1/config/naming/examples", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_rename_tracks {
+    if let Some(ref param_value) = p_query_rename_tracks {
         req_builder = req_builder.query(&[("renameTracks", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_replace_illegal_characters {
+    if let Some(ref param_value) = p_query_replace_illegal_characters {
         req_builder = req_builder.query(&[("replaceIllegalCharacters", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_colon_replacement_format {
+    if let Some(ref param_value) = p_query_colon_replacement_format {
         req_builder = req_builder.query(&[("colonReplacementFormat", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_standard_track_format {
+    if let Some(ref param_value) = p_query_standard_track_format {
         req_builder = req_builder.query(&[("standardTrackFormat", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_multi_disc_track_format {
+    if let Some(ref param_value) = p_query_multi_disc_track_format {
         req_builder = req_builder.query(&[("multiDiscTrackFormat", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_artist_folder_format {
+    if let Some(ref param_value) = p_query_artist_folder_format {
         req_builder = req_builder.query(&[("artistFolderFormat", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_include_artist_name {
+    if let Some(ref param_value) = p_query_include_artist_name {
         req_builder = req_builder.query(&[("includeArtistName", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_include_album_title {
+    if let Some(ref param_value) = p_query_include_album_title {
         req_builder = req_builder.query(&[("includeAlbumTitle", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_include_quality {
+    if let Some(ref param_value) = p_query_include_quality {
         req_builder = req_builder.query(&[("includeQuality", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_replace_spaces {
+    if let Some(ref param_value) = p_query_replace_spaces {
         req_builder = req_builder.query(&[("replaceSpaces", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_separator {
+    if let Some(ref param_value) = p_query_separator {
         req_builder = req_builder.query(&[("separator", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_number_style {
+    if let Some(ref param_value) = p_query_number_style {
         req_builder = req_builder.query(&[("numberStyle", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_id {
+    if let Some(ref param_value) = p_query_id {
         req_builder = req_builder.query(&[("id", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_resource_name {
+    if let Some(ref param_value) = p_query_resource_name {
         req_builder = req_builder.query(&[("resourceName", &param_value.to_string())]);
     }
     if let Some(ref apikey) = configuration.api_key {
@@ -244,10 +244,10 @@ pub async fn get_naming_config_examples(configuration: &configuration::Configura
 
 pub async fn update_naming_config(configuration: &configuration::Configuration, id: &str, naming_config_resource: Option<models::NamingConfigResource>) -> Result<models::NamingConfigResource, Error<UpdateNamingConfigError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_naming_config_resource = naming_config_resource;
+    let p_path_id = id;
+    let p_body_naming_config_resource = naming_config_resource;
 
-    let uri_str = format!("{}/api/v1/config/naming/{id}", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/api/v1/config/naming/{id}", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::PUT, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {
@@ -269,7 +269,7 @@ pub async fn update_naming_config(configuration: &configuration::Configuration, 
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_naming_config_resource);
+    req_builder = req_builder.json(&p_body_naming_config_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;

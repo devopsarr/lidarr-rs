@@ -39,9 +39,9 @@ pub enum GetLoginError {
 
 pub async fn get_by_path(configuration: &configuration::Configuration, path: &str) -> Result<(), Error<GetByPathError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_path = path;
+    let p_path_path = path;
 
-    let uri_str = format!("{}/{path}", configuration.base_path, path=crate::apis::urlencode(p_path));
+    let uri_str = format!("{}/{path}", configuration.base_path, path=crate::apis::urlencode(p_path_path));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {
@@ -80,9 +80,9 @@ pub async fn get_by_path(configuration: &configuration::Configuration, path: &st
 
 pub async fn get_content_by_path(configuration: &configuration::Configuration, path: &str) -> Result<(), Error<GetContentByPathError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_path = path;
+    let p_path_path = path;
 
-    let uri_str = format!("{}/content/{path}", configuration.base_path, path=crate::apis::urlencode(p_path));
+    let uri_str = format!("{}/content/{path}", configuration.base_path, path=crate::apis::urlencode(p_path_path));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {

@@ -60,7 +60,7 @@ pub enum UpdateAutoTaggingError {
 
 pub async fn create_auto_tagging(configuration: &configuration::Configuration, auto_tagging_resource: Option<models::AutoTaggingResource>) -> Result<models::AutoTaggingResource, Error<CreateAutoTaggingError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_auto_tagging_resource = auto_tagging_resource;
+    let p_body_auto_tagging_resource = auto_tagging_resource;
 
     let uri_str = format!("{}/api/v1/autotagging", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -84,7 +84,7 @@ pub async fn create_auto_tagging(configuration: &configuration::Configuration, a
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_auto_tagging_resource);
+    req_builder = req_builder.json(&p_body_auto_tagging_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -113,9 +113,9 @@ pub async fn create_auto_tagging(configuration: &configuration::Configuration, a
 
 pub async fn delete_auto_tagging(configuration: &configuration::Configuration, id: i32) -> Result<(), Error<DeleteAutoTaggingError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
+    let p_path_id = id;
 
-    let uri_str = format!("{}/api/v1/autotagging/{id}", configuration.base_path, id=p_id);
+    let uri_str = format!("{}/api/v1/autotagging/{id}", configuration.base_path, id=p_path_id);
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {
@@ -154,9 +154,9 @@ pub async fn delete_auto_tagging(configuration: &configuration::Configuration, i
 
 pub async fn get_auto_tagging_by_id(configuration: &configuration::Configuration, id: i32) -> Result<models::AutoTaggingResource, Error<GetAutoTaggingByIdError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
+    let p_path_id = id;
 
-    let uri_str = format!("{}/api/v1/autotagging/{id}", configuration.base_path, id=p_id);
+    let uri_str = format!("{}/api/v1/autotagging/{id}", configuration.base_path, id=p_path_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {
@@ -306,10 +306,10 @@ pub async fn list_auto_tagging_schema(configuration: &configuration::Configurati
 
 pub async fn update_auto_tagging(configuration: &configuration::Configuration, id: &str, auto_tagging_resource: Option<models::AutoTaggingResource>) -> Result<models::AutoTaggingResource, Error<UpdateAutoTaggingError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_auto_tagging_resource = auto_tagging_resource;
+    let p_path_id = id;
+    let p_body_auto_tagging_resource = auto_tagging_resource;
 
-    let uri_str = format!("{}/api/v1/autotagging/{id}", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/api/v1/autotagging/{id}", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::PUT, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {
@@ -331,7 +331,7 @@ pub async fn update_auto_tagging(configuration: &configuration::Configuration, i
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_auto_tagging_resource);
+    req_builder = req_builder.json(&p_body_auto_tagging_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;

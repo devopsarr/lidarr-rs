@@ -53,7 +53,7 @@ pub enum UpdateArtistError {
 
 pub async fn create_artist(configuration: &configuration::Configuration, artist_resource: Option<models::ArtistResource>) -> Result<models::ArtistResource, Error<CreateArtistError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_artist_resource = artist_resource;
+    let p_body_artist_resource = artist_resource;
 
     let uri_str = format!("{}/api/v1/artist", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -77,7 +77,7 @@ pub async fn create_artist(configuration: &configuration::Configuration, artist_
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_artist_resource);
+    req_builder = req_builder.json(&p_body_artist_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -106,17 +106,17 @@ pub async fn create_artist(configuration: &configuration::Configuration, artist_
 
 pub async fn delete_artist(configuration: &configuration::Configuration, id: i32, delete_files: Option<bool>, add_import_list_exclusion: Option<bool>) -> Result<(), Error<DeleteArtistError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_delete_files = delete_files;
-    let p_add_import_list_exclusion = add_import_list_exclusion;
+    let p_path_id = id;
+    let p_query_delete_files = delete_files;
+    let p_query_add_import_list_exclusion = add_import_list_exclusion;
 
-    let uri_str = format!("{}/api/v1/artist/{id}", configuration.base_path, id=p_id);
+    let uri_str = format!("{}/api/v1/artist/{id}", configuration.base_path, id=p_path_id);
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
 
-    if let Some(ref param_value) = p_delete_files {
+    if let Some(ref param_value) = p_query_delete_files {
         req_builder = req_builder.query(&[("deleteFiles", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_add_import_list_exclusion {
+    if let Some(ref param_value) = p_query_add_import_list_exclusion {
         req_builder = req_builder.query(&[("addImportListExclusion", &param_value.to_string())]);
     }
     if let Some(ref apikey) = configuration.api_key {
@@ -155,9 +155,9 @@ pub async fn delete_artist(configuration: &configuration::Configuration, id: i32
 
 pub async fn get_artist_by_id(configuration: &configuration::Configuration, id: i32) -> Result<models::ArtistResource, Error<GetArtistByIdError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
+    let p_path_id = id;
 
-    let uri_str = format!("{}/api/v1/artist/{id}", configuration.base_path, id=p_id);
+    let uri_str = format!("{}/api/v1/artist/{id}", configuration.base_path, id=p_path_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {
@@ -207,12 +207,12 @@ pub async fn get_artist_by_id(configuration: &configuration::Configuration, id: 
 
 pub async fn list_artist(configuration: &configuration::Configuration, mb_id: Option<&str>) -> Result<Vec<models::ArtistResource>, Error<ListArtistError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_mb_id = mb_id;
+    let p_query_mb_id = mb_id;
 
     let uri_str = format!("{}/api/v1/artist", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_mb_id {
+    if let Some(ref param_value) = p_query_mb_id {
         req_builder = req_builder.query(&[("mbId", &param_value.to_string())]);
     }
     if let Some(ref apikey) = configuration.api_key {
@@ -262,14 +262,14 @@ pub async fn list_artist(configuration: &configuration::Configuration, mb_id: Op
 
 pub async fn update_artist(configuration: &configuration::Configuration, id: &str, move_files: Option<bool>, artist_resource: Option<models::ArtistResource>) -> Result<models::ArtistResource, Error<UpdateArtistError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_move_files = move_files;
-    let p_artist_resource = artist_resource;
+    let p_path_id = id;
+    let p_query_move_files = move_files;
+    let p_body_artist_resource = artist_resource;
 
-    let uri_str = format!("{}/api/v1/artist/{id}", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/api/v1/artist/{id}", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::PUT, &uri_str);
 
-    if let Some(ref param_value) = p_move_files {
+    if let Some(ref param_value) = p_query_move_files {
         req_builder = req_builder.query(&[("moveFiles", &param_value.to_string())]);
     }
     if let Some(ref apikey) = configuration.api_key {
@@ -291,7 +291,7 @@ pub async fn update_artist(configuration: &configuration::Configuration, id: &st
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_artist_resource);
+    req_builder = req_builder.json(&p_body_artist_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;

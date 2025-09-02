@@ -32,9 +32,9 @@ pub enum ListCalendarError {
 
 pub async fn get_calendar_by_id(configuration: &configuration::Configuration, id: i32) -> Result<models::AlbumResource, Error<GetCalendarByIdError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
+    let p_path_id = id;
 
-    let uri_str = format!("{}/api/v1/calendar/{id}", configuration.base_path, id=p_id);
+    let uri_str = format!("{}/api/v1/calendar/{id}", configuration.base_path, id=p_path_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {
@@ -84,28 +84,28 @@ pub async fn get_calendar_by_id(configuration: &configuration::Configuration, id
 
 pub async fn list_calendar(configuration: &configuration::Configuration, start: Option<String>, end: Option<String>, unmonitored: Option<bool>, include_artist: Option<bool>, tags: Option<&str>) -> Result<Vec<models::AlbumResource>, Error<ListCalendarError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_start = start;
-    let p_end = end;
-    let p_unmonitored = unmonitored;
-    let p_include_artist = include_artist;
-    let p_tags = tags;
+    let p_query_start = start;
+    let p_query_end = end;
+    let p_query_unmonitored = unmonitored;
+    let p_query_include_artist = include_artist;
+    let p_query_tags = tags;
 
     let uri_str = format!("{}/api/v1/calendar", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_start {
+    if let Some(ref param_value) = p_query_start {
         req_builder = req_builder.query(&[("start", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_end {
+    if let Some(ref param_value) = p_query_end {
         req_builder = req_builder.query(&[("end", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_unmonitored {
+    if let Some(ref param_value) = p_query_unmonitored {
         req_builder = req_builder.query(&[("unmonitored", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_include_artist {
+    if let Some(ref param_value) = p_query_include_artist {
         req_builder = req_builder.query(&[("includeArtist", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_tags {
+    if let Some(ref param_value) = p_query_tags {
         req_builder = req_builder.query(&[("tags", &param_value.to_string())]);
     }
     if let Some(ref apikey) = configuration.api_key {

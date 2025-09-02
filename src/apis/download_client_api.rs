@@ -95,13 +95,13 @@ pub enum UpdateDownloadClientError {
 
 pub async fn create_download_client(configuration: &configuration::Configuration, force_save: Option<bool>, download_client_resource: Option<models::DownloadClientResource>) -> Result<models::DownloadClientResource, Error<CreateDownloadClientError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_force_save = force_save;
-    let p_download_client_resource = download_client_resource;
+    let p_query_force_save = force_save;
+    let p_body_download_client_resource = download_client_resource;
 
     let uri_str = format!("{}/api/v1/downloadclient", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_force_save {
+    if let Some(ref param_value) = p_query_force_save {
         req_builder = req_builder.query(&[("forceSave", &param_value.to_string())]);
     }
     if let Some(ref apikey) = configuration.api_key {
@@ -123,7 +123,7 @@ pub async fn create_download_client(configuration: &configuration::Configuration
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_download_client_resource);
+    req_builder = req_builder.json(&p_body_download_client_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -152,10 +152,10 @@ pub async fn create_download_client(configuration: &configuration::Configuration
 
 pub async fn create_download_client_action_by_name(configuration: &configuration::Configuration, name: &str, download_client_resource: Option<models::DownloadClientResource>) -> Result<(), Error<CreateDownloadClientActionByNameError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_name = name;
-    let p_download_client_resource = download_client_resource;
+    let p_path_name = name;
+    let p_body_download_client_resource = download_client_resource;
 
-    let uri_str = format!("{}/api/v1/downloadclient/action/{name}", configuration.base_path, name=crate::apis::urlencode(p_name));
+    let uri_str = format!("{}/api/v1/downloadclient/action/{name}", configuration.base_path, name=crate::apis::urlencode(p_path_name));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {
@@ -177,7 +177,7 @@ pub async fn create_download_client_action_by_name(configuration: &configuration
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_download_client_resource);
+    req_builder = req_builder.json(&p_body_download_client_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -195,9 +195,9 @@ pub async fn create_download_client_action_by_name(configuration: &configuration
 
 pub async fn delete_download_client(configuration: &configuration::Configuration, id: i32) -> Result<(), Error<DeleteDownloadClientError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
+    let p_path_id = id;
 
-    let uri_str = format!("{}/api/v1/downloadclient/{id}", configuration.base_path, id=p_id);
+    let uri_str = format!("{}/api/v1/downloadclient/{id}", configuration.base_path, id=p_path_id);
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {
@@ -236,7 +236,7 @@ pub async fn delete_download_client(configuration: &configuration::Configuration
 
 pub async fn delete_download_client_bulk(configuration: &configuration::Configuration, download_client_bulk_resource: Option<models::DownloadClientBulkResource>) -> Result<(), Error<DeleteDownloadClientBulkError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_download_client_bulk_resource = download_client_bulk_resource;
+    let p_body_download_client_bulk_resource = download_client_bulk_resource;
 
     let uri_str = format!("{}/api/v1/downloadclient/bulk", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
@@ -260,7 +260,7 @@ pub async fn delete_download_client_bulk(configuration: &configuration::Configur
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_download_client_bulk_resource);
+    req_builder = req_builder.json(&p_body_download_client_bulk_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -278,9 +278,9 @@ pub async fn delete_download_client_bulk(configuration: &configuration::Configur
 
 pub async fn get_download_client_by_id(configuration: &configuration::Configuration, id: i32) -> Result<models::DownloadClientResource, Error<GetDownloadClientByIdError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
+    let p_path_id = id;
 
-    let uri_str = format!("{}/api/v1/downloadclient/{id}", configuration.base_path, id=p_id);
+    let uri_str = format!("{}/api/v1/downloadclient/{id}", configuration.base_path, id=p_path_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {
@@ -430,7 +430,7 @@ pub async fn list_download_client_schema(configuration: &configuration::Configur
 
 pub async fn put_download_client_bulk(configuration: &configuration::Configuration, download_client_bulk_resource: Option<models::DownloadClientBulkResource>) -> Result<models::DownloadClientResource, Error<PutDownloadClientBulkError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_download_client_bulk_resource = download_client_bulk_resource;
+    let p_body_download_client_bulk_resource = download_client_bulk_resource;
 
     let uri_str = format!("{}/api/v1/downloadclient/bulk", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::PUT, &uri_str);
@@ -454,7 +454,7 @@ pub async fn put_download_client_bulk(configuration: &configuration::Configurati
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_download_client_bulk_resource);
+    req_builder = req_builder.json(&p_body_download_client_bulk_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -483,13 +483,13 @@ pub async fn put_download_client_bulk(configuration: &configuration::Configurati
 
 pub async fn test_download_client(configuration: &configuration::Configuration, force_test: Option<bool>, download_client_resource: Option<models::DownloadClientResource>) -> Result<(), Error<TestDownloadClientError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_force_test = force_test;
-    let p_download_client_resource = download_client_resource;
+    let p_query_force_test = force_test;
+    let p_body_download_client_resource = download_client_resource;
 
     let uri_str = format!("{}/api/v1/downloadclient/test", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_force_test {
+    if let Some(ref param_value) = p_query_force_test {
         req_builder = req_builder.query(&[("forceTest", &param_value.to_string())]);
     }
     if let Some(ref apikey) = configuration.api_key {
@@ -511,7 +511,7 @@ pub async fn test_download_client(configuration: &configuration::Configuration, 
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_download_client_resource);
+    req_builder = req_builder.json(&p_body_download_client_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -568,14 +568,14 @@ pub async fn testall_download_client(configuration: &configuration::Configuratio
 
 pub async fn update_download_client(configuration: &configuration::Configuration, id: i32, force_save: Option<bool>, download_client_resource: Option<models::DownloadClientResource>) -> Result<models::DownloadClientResource, Error<UpdateDownloadClientError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_force_save = force_save;
-    let p_download_client_resource = download_client_resource;
+    let p_path_id = id;
+    let p_query_force_save = force_save;
+    let p_body_download_client_resource = download_client_resource;
 
-    let uri_str = format!("{}/api/v1/downloadclient/{id}", configuration.base_path, id=p_id);
+    let uri_str = format!("{}/api/v1/downloadclient/{id}", configuration.base_path, id=p_path_id);
     let mut req_builder = configuration.client.request(reqwest::Method::PUT, &uri_str);
 
-    if let Some(ref param_value) = p_force_save {
+    if let Some(ref param_value) = p_query_force_save {
         req_builder = req_builder.query(&[("forceSave", &param_value.to_string())]);
     }
     if let Some(ref apikey) = configuration.api_key {
@@ -597,7 +597,7 @@ pub async fn update_download_client(configuration: &configuration::Configuration
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_download_client_resource);
+    req_builder = req_builder.json(&p_body_download_client_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;

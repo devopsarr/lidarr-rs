@@ -25,27 +25,27 @@ pub enum ListQueueDetailsError {
 
 pub async fn list_queue_details(configuration: &configuration::Configuration, artist_id: Option<i32>, album_ids: Option<Vec<i32>>, include_artist: Option<bool>, include_album: Option<bool>) -> Result<Vec<models::QueueResource>, Error<ListQueueDetailsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_artist_id = artist_id;
-    let p_album_ids = album_ids;
-    let p_include_artist = include_artist;
-    let p_include_album = include_album;
+    let p_query_artist_id = artist_id;
+    let p_query_album_ids = album_ids;
+    let p_query_include_artist = include_artist;
+    let p_query_include_album = include_album;
 
     let uri_str = format!("{}/api/v1/queue/details", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_artist_id {
+    if let Some(ref param_value) = p_query_artist_id {
         req_builder = req_builder.query(&[("artistId", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_album_ids {
+    if let Some(ref param_value) = p_query_album_ids {
         req_builder = match "multi" {
             "multi" => req_builder.query(&param_value.into_iter().map(|p| ("albumIds".to_owned(), p.to_string())).collect::<Vec<(std::string::String, std::string::String)>>()),
             _ => req_builder.query(&[("albumIds", &param_value.into_iter().map(|p| p.to_string()).collect::<Vec<String>>().join(",").to_string())]),
         };
     }
-    if let Some(ref param_value) = p_include_artist {
+    if let Some(ref param_value) = p_query_include_artist {
         req_builder = req_builder.query(&[("includeArtist", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_include_album {
+    if let Some(ref param_value) = p_query_include_album {
         req_builder = req_builder.query(&[("includeAlbum", &param_value.to_string())]);
     }
     if let Some(ref apikey) = configuration.api_key {
