@@ -52,7 +52,7 @@ pub async fn get_wanted_missing(configuration: &configuration::Configuration, pa
         req_builder = req_builder.query(&[("sortKey", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_sort_direction {
-        req_builder = req_builder.query(&[("sortDirection", &param_value.to_string())]);
+        req_builder = req_builder.query(&[("sortDirection", &serde_json::to_string(param_value)?)]);
     }
     if let Some(ref param_value) = p_query_include_artist {
         req_builder = req_builder.query(&[("includeArtist", &param_value.to_string())]);
