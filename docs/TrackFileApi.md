@@ -108,8 +108,8 @@ Name | Type | Description  | Required | Notes
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **artist_id** | Option<**i32**> |  |  |
-**track_file_ids** | Option<[**Vec<i32>**](i32.md)> |  |  |
-**album_id** | Option<[**Vec<i32>**](i32.md)> |  |  |
+**track_file_ids** | Option<[**Vec<i32>**](I32.md)> |  |  |
+**album_id** | Option<[**Vec<i32>**](I32.md)> |  |  |
 **unmapped** | Option<**bool**> |  |  |
 
 ### Return type

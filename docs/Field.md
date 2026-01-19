@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **help_text** | Option<**String**> |  | [optional]
 **help_text_warning** | Option<**String**> |  | [optional]
 **help_link** | Option<**String**> |  | [optional]
-**value** | Option<[**serde_json::Value**](.md)> |  | [optional]
+**value** | Option<**serde_json::Value**> |  | [optional]
 **r#type** | Option<**String**> |  | [optional]
 **advanced** | Option<**bool**> |  | [optional]
 **select_options** | Option<[**Vec<models::SelectOption>**](SelectOption.md)> |  | [optional]

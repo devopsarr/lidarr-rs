@@ -50,7 +50,7 @@ Name | Type | Description  | Required | Notes
 **artist_id** | Option<**i32**> |  |  |
 **album_id** | Option<**i32**> |  |  |
 **album_release_id** | Option<**i32**> |  |  |
-**track_ids** | Option<[**Vec<i32>**](i32.md)> |  |  |
+**track_ids** | Option<[**Vec<i32>**](I32.md)> |  |  |
 
 ### Return type
 

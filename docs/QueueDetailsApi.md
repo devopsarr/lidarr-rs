@@ -19,7 +19,7 @@ Method | HTTP request | Description
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **artist_id** | Option<**i32**> |  |  |
-**album_ids** | Option<[**Vec<i32>**](i32.md)> |  |  |
+**album_ids** | Option<[**Vec<i32>**](I32.md)> |  |  |
 **include_artist** | Option<**bool**> |  |  |[default to false]
 **include_album** | Option<**bool**> |  |  |[default to true]
 
