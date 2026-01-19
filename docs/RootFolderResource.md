@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **default_quality_profile_id** | Option<**i32**> |  | [optional]
 **default_monitor_option** | Option<[**models::MonitorTypes**](MonitorTypes.md)> |  | [optional]
 **default_new_item_monitor_option** | Option<[**models::NewItemMonitorTypes**](NewItemMonitorTypes.md)> |  | [optional]
-**default_tags** | Option<**Vec<i32>**> |  | [optional]
+**default_tags** | Option<**HashSet<i32>**> |  | [optional]
 **accessible** | Option<**bool**> |  | [optional]
 **free_space** | Option<**i64**> |  | [optional]
 **total_space** | Option<**i64**> |  | [optional]

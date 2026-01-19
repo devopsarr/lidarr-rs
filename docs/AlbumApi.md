@@ -110,7 +110,7 @@ Name | Type | Description  | Required | Notes
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **artist_id** | Option<**i32**> |  |  |
-**album_ids** | Option<[**Vec<i32>**](i32.md)> |  |  |
+**album_ids** | Option<[**Vec<i32>**](I32.md)> |  |  |
 **foreign_album_id** | Option<**String**> |  |  |
 **include_all_artist_albums** | Option<**bool**> |  |  |[default to false]
 

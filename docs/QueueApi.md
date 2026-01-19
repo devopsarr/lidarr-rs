@@ -87,13 +87,13 @@ Name | Type | Description  | Required | Notes
 **page** | Option<**i32**> |  |  |[default to 1]
 **page_size** | Option<**i32**> |  |  |[default to 10]
 **sort_key** | Option<**String**> |  |  |
-**sort_direction** | Option<[**SortDirection**](.md)> |  |  |
+**sort_direction** | Option<[**SortDirection**](SortDirection.md)> |  |  |
 **include_unknown_artist_items** | Option<**bool**> |  |  |[default to false]
 **include_artist** | Option<**bool**> |  |  |[default to false]
 **include_album** | Option<**bool**> |  |  |[default to false]
-**artist_ids** | Option<[**Vec<i32>**](i32.md)> |  |  |
-**protocol** | Option<[**DownloadProtocol**](.md)> |  |  |
-**quality** | Option<[**Vec<i32>**](i32.md)> |  |  |
+**artist_ids** | Option<[**Vec<i32>**](I32.md)> |  |  |
+**protocol** | Option<[**DownloadProtocol**](DownloadProtocol.md)> |  |  |
+**quality** | Option<[**Vec<i32>**](I32.md)> |  |  |
 
 ### Return type
 

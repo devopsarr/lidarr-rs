@@ -44,7 +44,7 @@ pub async fn get_log(configuration: &configuration::Configuration, page: Option<
         req_builder = req_builder.query(&[("sortKey", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_sort_direction {
-        req_builder = req_builder.query(&[("sortDirection", &serde_json::to_string(param_value)?)]);
+        req_builder = req_builder.query(&[("sortDirection", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_level {
         req_builder = req_builder.query(&[("level", &param_value.to_string())]);

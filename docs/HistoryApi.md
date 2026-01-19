@@ -52,15 +52,15 @@ Name | Type | Description  | Required | Notes
 **page** | Option<**i32**> |  |  |[default to 1]
 **page_size** | Option<**i32**> |  |  |[default to 10]
 **sort_key** | Option<**String**> |  |  |
-**sort_direction** | Option<[**SortDirection**](.md)> |  |  |
+**sort_direction** | Option<[**SortDirection**](SortDirection.md)> |  |  |
 **include_artist** | Option<**bool**> |  |  |
 **include_album** | Option<**bool**> |  |  |
 **include_track** | Option<**bool**> |  |  |
-**event_type** | Option<[**Vec<i32>**](i32.md)> |  |  |
+**event_type** | Option<[**Vec<i32>**](I32.md)> |  |  |
 **album_id** | Option<**i32**> |  |  |
 **download_id** | Option<**String**> |  |  |
-**artist_ids** | Option<[**Vec<i32>**](i32.md)> |  |  |
-**quality** | Option<[**Vec<i32>**](i32.md)> |  |  |
+**artist_ids** | Option<[**Vec<i32>**](I32.md)> |  |  |
+**quality** | Option<[**Vec<i32>**](I32.md)> |  |  |
 
 ### Return type
 
@@ -90,7 +90,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **artist_id** | Option<**i32**> |  |  |
 **album_id** | Option<**i32**> |  |  |
-**event_type** | Option<[**EntityHistoryEventType**](.md)> |  |  |
+**event_type** | Option<[**EntityHistoryEventType**](EntityHistoryEventType.md)> |  |  |
 **include_artist** | Option<**bool**> |  |  |[default to false]
 **include_album** | Option<**bool**> |  |  |[default to false]
 **include_track** | Option<**bool**> |  |  |[default to false]
@@ -122,7 +122,7 @@ Name | Type | Description  | Required | Notes
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **date** | Option<**String**> |  |  |
-**event_type** | Option<[**EntityHistoryEventType**](.md)> |  |  |
+**event_type** | Option<[**EntityHistoryEventType**](EntityHistoryEventType.md)> |  |  |
 **include_artist** | Option<**bool**> |  |  |[default to false]
 **include_album** | Option<**bool**> |  |  |[default to false]
 **include_track** | Option<**bool**> |  |  |[default to false]

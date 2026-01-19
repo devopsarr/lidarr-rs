@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **config_contract** | Option<**String**> |  | [optional]
 **info_link** | Option<**String**> |  | [optional]
 **message** | Option<[**models::ProviderMessage**](ProviderMessage.md)> |  | [optional]
-**tags** | Option<**Vec<i32>**> |  | [optional]
+**tags** | Option<**HashSet<i32>**> |  | [optional]
 **presets** | Option<[**Vec<models::ImportListResource>**](ImportListResource.md)> |  | [optional]
 **enable_automatic_add** | Option<**bool**> |  | [optional]
 **should_monitor** | Option<[**models::ImportListMonitorType**](ImportListMonitorType.md)> |  | [optional]
