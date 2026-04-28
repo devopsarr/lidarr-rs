@@ -16,7 +16,7 @@ pub struct LogResource {
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
     pub id: Option<i32>,
     #[serde(rename = "time", skip_serializing_if = "Option::is_none")]
-    pub time: Option<String>,
+    pub time: Option<chrono::DateTime<chrono::FixedOffset>>,
     #[serde(rename = "exception", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
     pub exception: Option<Option<String>>,
     #[serde(rename = "exceptionType", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]

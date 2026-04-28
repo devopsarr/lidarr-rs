@@ -121,7 +121,7 @@ Name | Type | Description  | Required | Notes
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**date** | Option<**String**> |  |  |
+**date** | Option<**chrono::DateTime<chrono::FixedOffset>**> |  |  |
 **event_type** | Option<[**EntityHistoryEventType**](EntityHistoryEventType.md)> |  |  |
 **include_artist** | Option<**bool**> |  |  |[default to false]
 **include_album** | Option<**bool**> |  |  |[default to false]

@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | Option<**i32**> |  | [optional]
 **filename** | Option<**String**> |  | [optional]
-**last_write_time** | Option<**String**> |  | [optional]
+**last_write_time** | Option<**chrono::DateTime<chrono::FixedOffset>**> |  | [optional]
 **contents_url** | Option<**String**> |  | [optional]
 **download_url** | Option<**String**> |  | [optional]
 

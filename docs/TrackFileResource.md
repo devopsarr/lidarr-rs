@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **album_id** | Option<**i32**> |  | [optional]
 **path** | Option<**String**> |  | [optional]
 **size** | Option<**i64**> |  | [optional]
-**date_added** | Option<**String**> |  | [optional]
+**date_added** | Option<**chrono::DateTime<chrono::FixedOffset>**> |  | [optional]
 **scene_name** | Option<**String**> |  | [optional]
 **release_group** | Option<**String**> |  | [optional]
 **quality** | Option<[**models::QualityModel**](QualityModel.md)> |  | [optional]

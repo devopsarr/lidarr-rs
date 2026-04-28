@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **custom_formats** | Option<[**Vec<models::CustomFormatResource>**](CustomFormatResource.md)> |  | [optional]
 **custom_format_score** | Option<**i32**> |  | [optional]
 **quality_cutoff_not_met** | Option<**bool**> |  | [optional]
-**date** | Option<**String**> |  | [optional]
+**date** | Option<**chrono::DateTime<chrono::FixedOffset>**> |  | [optional]
 **download_id** | Option<**String**> |  | [optional]
 **event_type** | Option<[**models::EntityHistoryEventType**](EntityHistoryEventType.md)> |  | [optional]
 **data** | Option<**std::collections::HashMap<String, String>**> |  | [optional]

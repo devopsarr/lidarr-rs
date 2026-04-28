@@ -30,11 +30,11 @@ pub struct CommandResource {
     #[serde(rename = "result", skip_serializing_if = "Option::is_none")]
     pub result: Option<models::CommandResult>,
     #[serde(rename = "queued", skip_serializing_if = "Option::is_none")]
-    pub queued: Option<String>,
+    pub queued: Option<chrono::DateTime<chrono::FixedOffset>>,
     #[serde(rename = "started", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
-    pub started: Option<Option<String>>,
+    pub started: Option<Option<chrono::DateTime<chrono::FixedOffset>>>,
     #[serde(rename = "ended", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
-    pub ended: Option<Option<String>>,
+    pub ended: Option<Option<chrono::DateTime<chrono::FixedOffset>>>,
     #[serde(rename = "duration", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
     pub duration: Option<Option<String>>,
     #[serde(rename = "exception", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
@@ -44,13 +44,13 @@ pub struct CommandResource {
     #[serde(rename = "clientUserAgent", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
     pub client_user_agent: Option<Option<String>>,
     #[serde(rename = "stateChangeTime", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
-    pub state_change_time: Option<Option<String>>,
+    pub state_change_time: Option<Option<chrono::DateTime<chrono::FixedOffset>>>,
     #[serde(rename = "sendUpdatesToClient", skip_serializing_if = "Option::is_none")]
     pub send_updates_to_client: Option<bool>,
     #[serde(rename = "updateScheduledTask", skip_serializing_if = "Option::is_none")]
     pub update_scheduled_task: Option<bool>,
     #[serde(rename = "lastExecutionTime", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
-    pub last_execution_time: Option<Option<String>>,
+    pub last_execution_time: Option<Option<chrono::DateTime<chrono::FixedOffset>>>,
 }
 
 impl CommandResource {

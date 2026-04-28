@@ -20,7 +20,7 @@ pub struct UpdateResource {
     #[serde(rename = "branch", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
     pub branch: Option<Option<String>>,
     #[serde(rename = "releaseDate", skip_serializing_if = "Option::is_none")]
-    pub release_date: Option<String>,
+    pub release_date: Option<chrono::DateTime<chrono::FixedOffset>>,
     #[serde(rename = "fileName", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
     pub file_name: Option<Option<String>>,
     #[serde(rename = "url", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
@@ -28,7 +28,7 @@ pub struct UpdateResource {
     #[serde(rename = "installed", skip_serializing_if = "Option::is_none")]
     pub installed: Option<bool>,
     #[serde(rename = "installedOn", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
-    pub installed_on: Option<Option<String>>,
+    pub installed_on: Option<Option<chrono::DateTime<chrono::FixedOffset>>>,
     #[serde(rename = "installable", skip_serializing_if = "Option::is_none")]
     pub installable: Option<bool>,
     #[serde(rename = "latest", skip_serializing_if = "Option::is_none")]

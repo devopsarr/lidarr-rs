@@ -268,7 +268,7 @@ pub async fn list_history_artist(configuration: &configuration::Configuration, a
     }
 }
 
-pub async fn list_history_since(configuration: &configuration::Configuration, date: Option<String>, event_type: Option<models::EntityHistoryEventType>, include_artist: Option<bool>, include_album: Option<bool>, include_track: Option<bool>) -> Result<Vec<models::HistoryResource>, Error<ListHistorySinceError>> {
+pub async fn list_history_since(configuration: &configuration::Configuration, date: Option<chrono::DateTime<chrono::FixedOffset>>, event_type: Option<models::EntityHistoryEventType>, include_artist: Option<bool>, include_album: Option<bool>, include_track: Option<bool>) -> Result<Vec<models::HistoryResource>, Error<ListHistorySinceError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_date = date;
     let p_query_event_type = event_type;
