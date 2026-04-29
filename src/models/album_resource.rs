@@ -42,7 +42,7 @@ pub struct AlbumResource {
     #[serde(rename = "ratings", skip_serializing_if = "Option::is_none")]
     pub ratings: Option<Box<models::Ratings>>,
     #[serde(rename = "releaseDate", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
-    pub release_date: Option<Option<String>>,
+    pub release_date: Option<Option<chrono::DateTime<chrono::FixedOffset>>>,
     #[serde(rename = "releases", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
     pub releases: Option<Option<Vec<models::AlbumReleaseResource>>>,
     #[serde(rename = "genres", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
@@ -56,7 +56,7 @@ pub struct AlbumResource {
     #[serde(rename = "links", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
     pub links: Option<Option<Vec<models::Links>>>,
     #[serde(rename = "lastSearchTime", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
-    pub last_search_time: Option<Option<String>>,
+    pub last_search_time: Option<Option<chrono::DateTime<chrono::FixedOffset>>>,
     #[serde(rename = "statistics", skip_serializing_if = "Option::is_none")]
     pub statistics: Option<Box<models::AlbumStatisticsResource>>,
     #[serde(rename = "addOptions", skip_serializing_if = "Option::is_none")]

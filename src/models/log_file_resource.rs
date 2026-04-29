@@ -18,7 +18,7 @@ pub struct LogFileResource {
     #[serde(rename = "filename", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
     pub filename: Option<Option<String>>,
     #[serde(rename = "lastWriteTime", skip_serializing_if = "Option::is_none")]
-    pub last_write_time: Option<String>,
+    pub last_write_time: Option<chrono::DateTime<chrono::FixedOffset>>,
     #[serde(rename = "contentsUrl", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
     pub contents_url: Option<Option<String>>,
     #[serde(rename = "downloadUrl", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]

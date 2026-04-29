@@ -33,7 +33,7 @@ Name | Type | Description | Notes
 **clean_name** | Option<**String**> |  | [optional]
 **sort_name** | Option<**String**> |  | [optional]
 **tags** | Option<**HashSet<i32>**> |  | [optional]
-**added** | Option<**String**> |  | [optional]
+**added** | Option<**chrono::DateTime<chrono::FixedOffset>**> |  | [optional]
 **add_options** | Option<[**models::AddArtistOptions**](AddArtistOptions.md)> |  | [optional]
 **ratings** | Option<[**models::Ratings**](Ratings.md)> |  | [optional]
 **statistics** | Option<[**models::ArtistStatisticsResource**](ArtistStatisticsResource.md)> |  | [optional]

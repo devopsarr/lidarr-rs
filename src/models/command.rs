@@ -30,9 +30,9 @@ pub struct Command {
     #[serde(rename = "name", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
     pub name: Option<Option<String>>,
     #[serde(rename = "lastExecutionTime", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
-    pub last_execution_time: Option<Option<String>>,
+    pub last_execution_time: Option<Option<chrono::DateTime<chrono::FixedOffset>>>,
     #[serde(rename = "lastStartTime", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
-    pub last_start_time: Option<Option<String>>,
+    pub last_start_time: Option<Option<chrono::DateTime<chrono::FixedOffset>>>,
     #[serde(rename = "trigger", skip_serializing_if = "Option::is_none")]
     pub trigger: Option<models::CommandTrigger>,
     #[serde(rename = "suppressMessages", skip_serializing_if = "Option::is_none")]

@@ -82,7 +82,7 @@ pub async fn get_calendar_by_id(configuration: &configuration::Configuration, id
     }
 }
 
-pub async fn list_calendar(configuration: &configuration::Configuration, start: Option<String>, end: Option<String>, unmonitored: Option<bool>, include_artist: Option<bool>, tags: Option<&str>) -> Result<Vec<models::AlbumResource>, Error<ListCalendarError>> {
+pub async fn list_calendar(configuration: &configuration::Configuration, start: Option<chrono::DateTime<chrono::FixedOffset>>, end: Option<chrono::DateTime<chrono::FixedOffset>>, unmonitored: Option<bool>, include_artist: Option<bool>, tags: Option<&str>) -> Result<Vec<models::AlbumResource>, Error<ListCalendarError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_start = start;
     let p_query_end = end;

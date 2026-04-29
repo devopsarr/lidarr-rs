@@ -24,7 +24,7 @@ pub struct BackupResource {
     #[serde(rename = "size", skip_serializing_if = "Option::is_none")]
     pub size: Option<i64>,
     #[serde(rename = "time", skip_serializing_if = "Option::is_none")]
-    pub time: Option<String>,
+    pub time: Option<chrono::DateTime<chrono::FixedOffset>>,
 }
 
 impl BackupResource {

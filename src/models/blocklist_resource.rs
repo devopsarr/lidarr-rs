@@ -26,7 +26,7 @@ pub struct BlocklistResource {
     #[serde(rename = "customFormats", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
     pub custom_formats: Option<Option<Vec<models::CustomFormatResource>>>,
     #[serde(rename = "date", skip_serializing_if = "Option::is_none")]
-    pub date: Option<String>,
+    pub date: Option<chrono::DateTime<chrono::FixedOffset>>,
     #[serde(rename = "protocol", skip_serializing_if = "Option::is_none")]
     pub protocol: Option<models::DownloadProtocol>,
     #[serde(rename = "indexer", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]

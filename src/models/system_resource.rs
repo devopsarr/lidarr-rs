@@ -20,7 +20,7 @@ pub struct SystemResource {
     #[serde(rename = "version", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
     pub version: Option<Option<String>>,
     #[serde(rename = "buildTime", skip_serializing_if = "Option::is_none")]
-    pub build_time: Option<String>,
+    pub build_time: Option<chrono::DateTime<chrono::FixedOffset>>,
     #[serde(rename = "isDebug", skip_serializing_if = "Option::is_none")]
     pub is_debug: Option<bool>,
     #[serde(rename = "isProduction", skip_serializing_if = "Option::is_none")]
@@ -66,7 +66,7 @@ pub struct SystemResource {
     #[serde(rename = "runtimeName", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
     pub runtime_name: Option<Option<String>>,
     #[serde(rename = "startTime", skip_serializing_if = "Option::is_none")]
-    pub start_time: Option<String>,
+    pub start_time: Option<chrono::DateTime<chrono::FixedOffset>>,
     #[serde(rename = "packageVersion", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
     pub package_version: Option<Option<String>>,
     #[serde(rename = "packageAuthor", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]

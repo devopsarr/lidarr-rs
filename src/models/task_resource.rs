@@ -22,11 +22,11 @@ pub struct TaskResource {
     #[serde(rename = "interval", skip_serializing_if = "Option::is_none")]
     pub interval: Option<i32>,
     #[serde(rename = "lastExecution", skip_serializing_if = "Option::is_none")]
-    pub last_execution: Option<String>,
+    pub last_execution: Option<chrono::DateTime<chrono::FixedOffset>>,
     #[serde(rename = "lastStartTime", skip_serializing_if = "Option::is_none")]
-    pub last_start_time: Option<String>,
+    pub last_start_time: Option<chrono::DateTime<chrono::FixedOffset>>,
     #[serde(rename = "nextExecution", skip_serializing_if = "Option::is_none")]
-    pub next_execution: Option<String>,
+    pub next_execution: Option<chrono::DateTime<chrono::FixedOffset>>,
     #[serde(rename = "lastDuration", skip_serializing_if = "Option::is_none")]
     pub last_duration: Option<String>,
 }

@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **source_title** | Option<**String**> |  | [optional]
 **quality** | Option<[**models::QualityModel**](QualityModel.md)> |  | [optional]
 **custom_formats** | Option<[**Vec<models::CustomFormatResource>**](CustomFormatResource.md)> |  | [optional]
-**date** | Option<**String**> |  | [optional]
+**date** | Option<**chrono::DateTime<chrono::FixedOffset>**> |  | [optional]
 **protocol** | Option<[**models::DownloadProtocol**](DownloadProtocol.md)> |  | [optional]
 **indexer** | Option<**String**> |  | [optional]
 **message** | Option<**String**> |  | [optional]

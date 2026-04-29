@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | Option<**i32**> |  | [optional]
-**time** | Option<**String**> |  | [optional]
+**time** | Option<**chrono::DateTime<chrono::FixedOffset>**> |  | [optional]
 **exception** | Option<**String**> |  | [optional]
 **exception_type** | Option<**String**> |  | [optional]
 **level** | Option<**String**> |  | [optional]

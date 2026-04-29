@@ -38,9 +38,9 @@ pub struct QueueResource {
     #[serde(rename = "timeleft", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
     pub timeleft: Option<Option<String>>,
     #[serde(rename = "estimatedCompletionTime", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
-    pub estimated_completion_time: Option<Option<String>>,
+    pub estimated_completion_time: Option<Option<chrono::DateTime<chrono::FixedOffset>>>,
     #[serde(rename = "added", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
-    pub added: Option<Option<String>>,
+    pub added: Option<Option<chrono::DateTime<chrono::FixedOffset>>>,
     #[serde(rename = "status", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
     pub status: Option<Option<String>>,
     #[serde(rename = "trackedDownloadStatus", skip_serializing_if = "Option::is_none")]

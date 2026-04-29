@@ -27,7 +27,7 @@ Name | Type | Description | Notes
 **temporarily_rejected** | Option<**bool**> |  | [optional]
 **rejected** | Option<**bool**> |  | [optional]
 **rejections** | Option<**Vec<String>**> |  | [optional]
-**publish_date** | Option<**String**> |  | [optional]
+**publish_date** | Option<**chrono::DateTime<chrono::FixedOffset>**> |  | [optional]
 **comment_url** | Option<**String**> |  | [optional]
 **download_url** | Option<**String**> |  | [optional]
 **info_url** | Option<**String**> |  | [optional]

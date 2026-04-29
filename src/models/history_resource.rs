@@ -32,7 +32,7 @@ pub struct HistoryResource {
     #[serde(rename = "qualityCutoffNotMet", skip_serializing_if = "Option::is_none")]
     pub quality_cutoff_not_met: Option<bool>,
     #[serde(rename = "date", skip_serializing_if = "Option::is_none")]
-    pub date: Option<String>,
+    pub date: Option<chrono::DateTime<chrono::FixedOffset>>,
     #[serde(rename = "downloadId", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
     pub download_id: Option<Option<String>>,
     #[serde(rename = "eventType", skip_serializing_if = "Option::is_none")]
