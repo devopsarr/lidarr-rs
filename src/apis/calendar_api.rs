@@ -94,10 +94,10 @@ pub async fn list_calendar(configuration: &configuration::Configuration, start: 
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref param_value) = p_query_start {
-        req_builder = req_builder.query(&[("start", &param_value.to_string())]);
+        req_builder = req_builder.query(&[("start", &param_value.to_rfc3339())]);
     }
     if let Some(ref param_value) = p_query_end {
-        req_builder = req_builder.query(&[("end", &param_value.to_string())]);
+        req_builder = req_builder.query(&[("end", &param_value.to_rfc3339())]);
     }
     if let Some(ref param_value) = p_query_unmonitored {
         req_builder = req_builder.query(&[("unmonitored", &param_value.to_string())]);
